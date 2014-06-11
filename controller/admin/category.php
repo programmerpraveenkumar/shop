@@ -10,6 +10,10 @@ class category extends controller{
             }
         }
         private function initial(){
+            if(!isset($_GET['type'])){
+                $this->view->data=$this->model->call('category','addForm');
+             
+            }else{
              switch($_GET['type']){
             case 'add':
                 $this->view->data=$this->model->call('category','addForm');
@@ -22,22 +26,24 @@ class category extends controller{
                 $this->view->data=$this->model->call('category','deleteForm');
             break;
             default:
-                die('you click here to go back');
+                
+            $this->view->data=$this->model->call('category','addForm');
             break;
         }
+            }
          
             $this->view->render('admin/index');
         }
         private function action(){
             switch($_GET['type']){
                case 'add':
-                  $this->model->call('category','addForm');
+                  $this->model->call('category','add');
                break;
                case 'update':
-                   $this->view->data=$this->model->call('category','updateForm');
+                   $this->model->call('category','updateForm');
                break;
-               case 'delete':
-                   $this->view->data=$this->model->call('category','deleteForm');
+               case 'delete':                   
+                   $this->model->call('category','delete');
                break;
                default:
                    die('you click here to go back');

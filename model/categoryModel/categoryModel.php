@@ -12,11 +12,11 @@ class categoryModel extends database{
         return array("title"=>"Add Category","data"=>$data);
     }
     public function deleteForm(){
-      $data=$this->_categoryform('delete').'<div class="separator"><label class="label">Select Category</label><select class="select" name="name"><option value="">--select category--</option></option>'.$this->categoryDriver()->option().'</select><span id="error_name"></span></div><div class="submitdiv separator "><input class="submit_btn" type="submit" value="Add" /></div> </form>';
+      $data=$this->_categoryform('delete').'<div class="separator"><label class="label">Select Category</label><select class="select" name="name"><option value="">--select category--</option>'.$this->categoryDriver()->option().'</select><span id="error_name"></span></div><div class="submitdiv separator "><input class="submit_btn" type="submit" value="Add" /></div> </form>';
         return array("title"=>"Delete Category","data"=>$data);  
     }
     public function updateForm(){
-   $data=$this->_categoryform('delete').'<div class="separator"><label class="label">Select Category</label><input class="textbox" type="text" name="name" /><span id="error_name"></span></div><div class="submitdiv separator "><input class="submit_btn" type="submit" value="Add" /></div> </form>';
+   $data=$this->_categoryform('delete').'<div class="separator"><label class="label">Select Category</label><select class="select" name="id"><option value="">--select category--</option>'.$this->categoryDriver()->option().'</select><span id="error_id"></span></div><div class="submitdiv separator "><label class="label">New Name</label><input class="textbox" type="text" name="name" /><span id="error_name"></span></div><div class="submitdiv separator "><input class="submit_btn" type="submit" value="Add" /></div> </form>';
         return array("title"=>"Update Category","data"=>$data);
         
     }
@@ -27,14 +27,14 @@ class categoryModel extends database{
         }
         //die();
     }
-    public function addstore(){
+    public function add(){
         $data=$this->DB_refreshdata($_POST);
         $this->storedProcedure("sp_category('add','$data[name]')");
         $this->DB_adminredirect('category/?type=add&msg=add_ok');        
     }
     public function update(){     
         $data=$this->DB_refreshdata($_POST);
-        $this->storedProcedure("sp_category('add','$data[name]')");
+        $this->storedProcedure("sp_category('update','name=\'$data[name]\' where id=$data[id]')");
         $this->DB_adminredirect('category/?type=update&msg=update_ok');        
     }
     public function delete(){     
