@@ -352,11 +352,7 @@
                                         <td class="search-column-2">
                                         	<p class="align-right"><a href="#">Advanced Search</a></p>
                                         	<select class="chosen-select-search">
-                                                <option>All Categories</option>
-                                                <option>All Categories</option>
-                                                <option>All Categories</option>
-                                                <option>All Categories</option>
-                                                <option>All Categories</option>
+                                                <?php  if(isset($this->data['categorylist'])) echo $this->data['categorylist']; ?>
                                             </select>
                                 		</td>
                                     </tr>

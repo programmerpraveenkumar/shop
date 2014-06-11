@@ -127,12 +127,14 @@
     	
     	<!-- Begin of titlebar/breadcrumbs -->
 		<div id="title-bar">
+                    
 			</div> <!--! end of #title-bar -->
 		
-		<div class="shadow-bottom shadow-titlebar"></div>
+                        <div class="shadow-bottom shadow-titlebar"></div>
 		
 		<!-- Begin of #main-content -->
 		<div id="main-content">
+                    <span style="font-size: 20px;"><?php if(isset($this->data['title'])) echo $this->data['title']; ?></span>
 			<div class="container_12">
 			
                             <?php if(isset($this->data['data'])) echo $this->data['data']; ?>

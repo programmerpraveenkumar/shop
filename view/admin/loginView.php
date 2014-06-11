@@ -82,10 +82,8 @@
 		
 		<!-- Begin of #main-content -->
 		<div id="main-content">
-                    <div style="margin-left:215px;"class="container_12">
-			
-                            
-                            <form class="form"  name="" action="<?php echo ADMIN ?>validation" method="post" onsubmit="return validation('',{0:['username','empty'],2:['password','empty']})"> 
+                    <div style="margin-left:215px;"class="container_12">                      
+                            <form class="form"  name="login" action="<?php echo ADMIN ?>validation" method="post" onsubmit="return validation('login',{0:['username','empty'],2:['password','empty']})"> 
                                 <div class="separator"><label class="label">username</label><input class="textbox" type="text" name="username" /><span id="error_username"></span></div>
                                <div class="separator"><label class="label">Password</label><input  class="textbox" type="password" name="password" /><span id="error_password"></span></div>
                                 <div class="submitdiv separator "><input class="submit_btn" type="submit" value="Log In" /></div> 

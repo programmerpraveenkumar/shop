@@ -23,6 +23,7 @@ class load{
     }   
     
 }
+
 spl_autoload_register(array('load','lib'));
 spl_autoload_register(array('load','driver'));
 new path();

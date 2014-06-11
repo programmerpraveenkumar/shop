@@ -10,6 +10,7 @@ class index extends controller{
         } 
 }
     private function initial(){
+        $this->view->data=$this->model->call('user','index');
             $this->view->render('page/index');
     }
     private function listt(){

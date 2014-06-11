@@ -9,7 +9,7 @@ class model{
         $modelName=$modelName.'Model';
         $file='model/'.$modelName.'/'.$modelName.'.php';
         if(file_exists($file)){            
-            require $file;            
+            require_once $file;            
             if(class_exists($modelName)){
                 $obj=new $modelName();
                 if(is_array($this->fromControllerToModel))
