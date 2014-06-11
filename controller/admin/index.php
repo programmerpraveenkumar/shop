@@ -10,6 +10,7 @@ class index  extends controller{
             }
     }
     public function initial(){
+       
         $this->view->render('admin/index');
     }
     public function logout(){

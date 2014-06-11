@@ -102,8 +102,9 @@
 	    		<li>
 	    			<a href="javascript:void(0);"><img src="<?php echo ADMININCLUDE ?>img/icons/packs/fugue/16x16/clipboard-list.png">Category<span class="badge grey">2</span></a>
 	    			<ul class="sub">
-	    				<li><a href="<?php echo ADMIN ?>category/add">Add</a></li>
-	    				<li><a href="<?php echo ADMIN ?>category/update">Update and Delete</a></li>                                        
+	    				<li><a href="<?php echo ADMIN ?>category/initial?type=add">Add</a></li>
+	    				<li><a href="<?php echo ADMIN ?>category/initial?type=update">Update</a></li>                                        
+                                        <li><a href="<?php echo ADMIN ?>category/initial?type=delete">Delete</a></li>                                        
 	    			</ul>
 	    		</li>
                         <li>
@@ -161,51 +162,9 @@
   <script>window.jQuery || document.write('<script src="js/libs/jquery-1.6.2.min.js"><\/script>')</script>
 
 
-  <!-- scripts concatenated and minified via ant build script-->
-  <script defer src="<?php echo ADMININCLUDE ?>js/plugins.js"></script> <!-- lightweight wrapper for consolelog, optional -->
-  <script defer src="<?php echo ADMININCLUDE ?>js/mylibs/jquery-ui-1.8.15.custom.min.js"></script> <!-- jQuery UI -->
-  <script defer src="<?php echo ADMININCLUDE ?>js/mylibs/jquery.notifications.js"></script> <!-- Notifications  -->
-  <script defer src="<?php echo ADMININCLUDE ?>js/mylibs/jquery.uniform.min.js"></script> <!-- Uniform (Look & Feel from forms) -->
-  <script defer src="<?php echo ADMININCLUDE ?>js/mylibs/jquery.validate.min.js"></script> <!-- Validation from forms -->
-  <script defer src="<?php echo ADMININCLUDE ?>js/mylibs/jquery.dataTables.min.js"></script> <!-- Tables -->
-  <script defer src="<?php echo ADMININCLUDE ?>js/mylibs/jquery.tipsy.js"></script> <!-- Tooltips -->
-  <script defer src="<?php echo ADMININCLUDE ?>js/mylibs/excanvas.js"></script> <!-- Charts -->
-  <script defer src="<?php echo ADMININCLUDE ?>js/mylibs/jquery.visualize.js"></script> <!-- Charts -->
-  <script defer src="<?php echo ADMININCLUDE ?>js/mylibs/jquery.slidernav.min.js"></script> <!-- Contact List -->
-  <script defer src="<?php echo ADMININCLUDE ?>js/common.js"></script> <!-- Generic functions -->
-  <script defer src="<?php echo ADMININCLUDE ?>js/script.js"></script> <!-- Generic scripts -->
   
-  <script type="text/javascript">
-	$().ready(function() {
-		
-		/*
-		 * Form Validation
-		 */
-		$.validator.setDefaults({
-			submitHandler: function(e) {
-				$.jGrowl("Form was successfully submitted.", { theme: 'success' });
-				$(e).parent().parent().fadeOut();
-				v.resetForm();
-				v2.resetForm();
-				v3.resetForm();
-			}
-		});
-		var v = $("#create-user-form").validate();
-		jQuery("#reset").click(function() { v.resetForm(); $.jGrowl("User was not created!", { theme: 'error' }); });
-		
-		var v2 = $("#write-message-form").validate();
-		jQuery("#reset2").click(function() { v2.resetForm(); $.jGrowl("Message was not sent.", { theme: 'error' }); });
-		
-		var v3 = $("#create-folder-form").validate();
-		jQuery("#reset3").click(function() { v3.resetForm(); $.jGrowl("Folder was not created!", { theme: 'error' }); });
-		
-		var validateform = $("#validate-form").validate();
-		$("#reset-validate-form").click(function() {
-			validateform.resetForm();
-			$.jGrowl("Blogpost was not created.", { theme: 'error' });
-		});
-	});
-  </script>
+  
+ 
   <!-- end scripts-->
 
   <!-- Prompt IE 6 users to install Chrome Frame. Remove this if you want to support IE 6.

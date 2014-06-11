@@ -6,7 +6,7 @@
     margin-bottom:5px;
     clear: both;
 }
-.form .textbox{
+.form .textbox,.form .select{
     width: 250px;
 }
 .form .title{
@@ -23,6 +23,10 @@
     clear: left;
     
 }
+.form .select{
+    
+}
+
 .form .submit_btn{
     width: 150px;padding:10px;
 }
