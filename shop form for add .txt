@@ -1,0 +1,15 @@
+category
+mobile
+phone
+city
+state
+district
+pincode
+timing
+owner image
+product image
+description
+photo
+video
+map
+opeingin timings
