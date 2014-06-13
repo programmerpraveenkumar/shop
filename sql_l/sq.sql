@@ -28,7 +28,7 @@ CREATE TABLE `category` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `name` varchar(55) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -37,7 +37,7 @@ CREATE TABLE `category` (
 
 LOCK TABLES `category` WRITE;
 /*!40000 ALTER TABLE `category` DISABLE KEYS */;
-REPLACE INTO `category` VALUES (1,'update'),(2,'testw');
+REPLACE INTO `category` VALUES (1,'update'),(2,'testw'),(3,'szdsadasafse'),(5,'kumar');
 /*!40000 ALTER TABLE `category` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -76,12 +76,25 @@ DROP TABLE IF EXISTS `product`;
 CREATE TABLE `product` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `shopname` varchar(55) NOT NULL,
-  `cat_id` int(11) DEFAULT NULL,
+  `category` int(11) DEFAULT NULL,
   `productname` varchar(155) DEFAULT NULL,
   `productcol` varchar(45) DEFAULT NULL,
+  `sub_category` int(11) DEFAULT NULL,
+  `street` varchar(45) DEFAULT NULL,
+  `city` varchar(45) DEFAULT NULL,
+  `district` varchar(45) DEFAULT NULL,
+  `state` varchar(45) DEFAULT NULL,
+  `country` varchar(45) DEFAULT NULL,
+  `mobile` varchar(45) DEFAULT NULL,
+  `phone` varchar(45) DEFAULT NULL,
+  `description` text,
+  `index_ad` int(11) DEFAULT NULL,
+  `rank` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`),
-  KEY `categoryid_idx` (`cat_id`),
-  CONSTRAINT `categoryid` FOREIGN KEY (`cat_id`) REFERENCES `category` (`id`) ON DELETE SET NULL ON UPDATE NO ACTION
+  KEY `categoryid_idx` (`category`),
+  KEY `sub_category_id_idx` (`sub_category`),
+  CONSTRAINT `categoryid` FOREIGN KEY (`category`) REFERENCES `category` (`id`) ON DELETE SET NULL ON UPDATE NO ACTION,
+  CONSTRAINT `sub_category_id` FOREIGN KEY (`sub_category`) REFERENCES `category` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COMMENT='	';
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -190,4 +203,4 @@ DELIMITER ;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2014-06-10 17:32:11
+-- Dump completed on 2014-06-13 13:22:20

@@ -1,15 +1,14 @@
+product_name
 category
+sub_category
+shop_name
+street
+city
+district
+state
+country
 mobile
 phone
-city
-state
-district
-pincode
-timing
-owner image
-product image
-description
-photo
-video
-map
-opeingin timings
+descrption
+indexpagead
+searchindex rank..
