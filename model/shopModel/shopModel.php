@@ -71,5 +71,13 @@ class shopModel extends database{
             $this->DB_adminredirect('shop/sliderimage?msg=empty');
         }
     }
+    public function sliderimage(){
+        $path='photo/slider/';
+        $val=array_values(array_diff(scandir($path),array('.','..')));
+        die('shop model-->sliderimage');
+        for($i=0;$i<count($val);$i++){
+            
+        }
+    }
 }
                                                                             
