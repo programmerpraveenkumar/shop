@@ -51,7 +51,7 @@
        For optimal performance, use a custom Modernizr build: www.NEHA.com/download/ -->
   <script src="js/libs/modernizr-2.0.6.min.js"></script>
   <script src="<?php echo INCLUDE_FILE;  ?>js/validation.js"></script>
-  <script src="<?php echo INCLUDE_FILE;  ?>js/ajaxvalidation.js"></script>
+  <script src="<?php echo INCLUDE_FILE;  ?>js/ajaxvalidation.js?v=1"></script>
 <script type="text/javascript">
                 USER_PATH='<?php echo PAGE_PATH; ?>';    
                 ADMINPATH='<?php echo ADMIN; ?>';    

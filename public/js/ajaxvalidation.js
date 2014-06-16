@@ -97,11 +97,10 @@
                 };
                 try{
                     loader.show('loading......');
-                    form=document.forms[formdetails['name']];
-                    
-                    form.submit();
+                    form=document.forms[formdetails['name']];                   
                     parentForm=form;
-                    //loader.formsubmit();
+					alert('praveen');
+					return false;
                     for(elements  in ele){               
                         if(ele[elements]['1']=='ajax'){      
                             if(formdetails['type']!='ajax'){
