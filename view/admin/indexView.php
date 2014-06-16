@@ -51,6 +51,11 @@
        For optimal performance, use a custom Modernizr build: www.NEHA.com/download/ -->
   <script src="js/libs/modernizr-2.0.6.min.js"></script>
   <script src="<?php echo INCLUDE_FILE;  ?>js/validation.js"></script>
+  <script src="<?php echo INCLUDE_FILE;  ?>js/ajaxvalidation.js"></script>
+<script type="text/javascript">
+                USER_PATH='<?php echo PAGE_PATH; ?>';    
+                ADMINPATH='<?php echo ADMIN; ?>';    
+                </script>
 </head>
 
 <body id="top">
@@ -97,22 +102,31 @@
     	
     	<!-- Begin of Navigation -->
     	<nav id="nav">
-	    	<ul class="menu collapsible shadow-bottom">
-	    		
+	    	<ul class="menu collapsible shadow-bottom">	    		
 	    		<li>
-	    			<a href="javascript:void(0);"><img src="<?php echo ADMININCLUDE ?>img/icons/packs/fugue/16x16/clipboard-list.png">Category<span class="badge grey">2</span></a>
+	    			<a href="javascript:void(0);"><img src="<?php echo ADMININCLUDE ?>img/icons/packs/fugue/16x16/clipboard-list.png">Category</a>
 	    			<ul class="sub">
 	    				<li><a href="<?php echo ADMIN ?>category/initial?type=add">Add</a></li>
 	    				<li><a href="<?php echo ADMIN ?>category/initial?type=update">Update</a></li>                                        
                                         <li><a href="<?php echo ADMIN ?>category/initial?type=delete">Delete</a></li>                                        
+                                        <li><a href="<?php echo ADMIN ?>category/sub?type=add">Add Sub Category</a></li>
+	    				<li><a href="<?php echo ADMIN ?>category/sub?type=update">Update Sub Category</a></li>                                        
+                                        <li><a href="<?php echo ADMIN ?>category/sub?type=delete">Delete Sub Category</a></li>                                        
 	    			</ul>
 	    		</li>
                         <li>
-	    			<a href="javascript:void(0);"><img src="<?php echo ADMININCLUDE ?>img/icons/packs/fugue/16x16/clipboard-list.png">Shop<span class="badge grey">3</span></a>
+	    			<a href="javascript:void(0);"><img src="<?php echo ADMININCLUDE ?>img/icons/packs/fugue/16x16/clipboard-list.png">Shop</a>
 	    			<ul class="sub">
                                     <li><a href="<?php echo ADMIN ?>shop/add">Add</a></li>	
                                     <li><a href="<?php echo ADMIN ?>shop/requests">Requests Pending</a></li>
-	    				<li><a href="<?php echo ADMIN ?>shop/inactive">Inactivate or Delete</a></li>                                        
+	    		            <li><a href="<?php echo ADMIN ?>shop/inactive">Inactivate or Delete</a></li>                                        
+	    			</ul>
+	    		</li>
+                        <li>
+	    			<a href="javascript:void(0);"><img src="<?php echo ADMININCLUDE ?>img/icons/packs/fugue/16x16/clipboard-list.png">Home page advertisements</a>
+	    			<ul class="sub">
+                                    <li><a href="<?php echo ADMIN ?>shop/indexproduct">Product Add</a></li>	
+                                    <li><a href="<?php echo ADMIN ?>shop/sliderimage">Slider Image</a></li>	    		            
 	    			</ul>
 	    		</li>
 	    		
@@ -140,9 +154,12 @@
 			
                             <?php if(isset($this->data['data'])) echo $this->data['data']; ?>
 
-			
-			<div class="clear height-fix"></div>
-
+                            
+                            <div class="clear height-fix"></div><span style="color:red;font-size: 18px;">
+                        <script type="text/javascript">
+                        <?php  if(isset($_GET['msg'])) echo 'document.writeln(load(\''.$_GET["msg"].'\'))'; ?>
+                            </script>
+                            </span>
 		</div></div> <!--! end of #main-content -->
   </div> <!--! end of #main -->
 

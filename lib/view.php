@@ -8,7 +8,7 @@ class view{
             if(file_exists($file))
                 require $file;
             else{
-                //echo $file.' is not foind';
+                echo $file.' is not foind';
                 throw new \driver\error($file);
             }
         }

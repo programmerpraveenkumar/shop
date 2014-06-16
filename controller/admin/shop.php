@@ -13,5 +13,14 @@ class shop extends controller{
         $this->view->data=$this->model->call('shop','addform');
         $this->view->render('admin/index');
     }
+    private function indexproduct(){
+        die('index product');
+    }
+    private function sliderimage(){
+        die('images');
+    }
+    private function productstore(){
+        $this->model->call('shop','shopstore');
+    }
 }
 

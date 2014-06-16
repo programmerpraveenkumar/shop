@@ -6,7 +6,7 @@
     margin-bottom:5px;
     clear: both;
 }
-.form .textbox,.form .select{
+.form .textbox,.form .select,.form .textarea{
     width: 250px;
 }
 .form .title{

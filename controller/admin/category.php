@@ -34,6 +34,32 @@ class category extends controller{
          
             $this->view->render('admin/index');
         }
+                private function sub(){                    
+                        if(!isset($_GET['type'])){
+                            $this->view->data=$this->model->call('category','subaddForm');
+
+                        }else{
+                         switch($_GET['type']){
+                        case 'add':
+                            $this->view->data=$this->model->call('category','subaddForm');
+                        break;
+                        case 'update':
+                            $this->view->data=$this->model->call('category','updateForm');
+                        break;
+                        case 'delete':
+
+                            $this->view->data=$this->model->call('category','deleteForm');
+                        break;
+                        default:
+
+                        $this->view->data=$this->model->call('category','addForm');
+                        break;
+                    }
+            }
+         
+            $this->view->render('admin/index');
+        }
+
         private function action(){
             switch($_GET['type']){
                case 'add':
@@ -44,6 +70,9 @@ class category extends controller{
                break;
                case 'delete':                   
                    $this->model->call('category','delete');
+               break;
+               case 'subadd':
+                  $this->model->call('category','subaddstore');
                break;
                default:
                    die('you click here to go back');

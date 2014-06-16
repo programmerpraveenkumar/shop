@@ -1,6 +1,7 @@
 <?php
 use driver\categoryDRIVER as categoryDRIVER;
 class categoryModel extends database{
+    private $_tmp;
     public function categoryDriver(){
         return new categoryDRIVER();
     }
@@ -16,9 +17,34 @@ class categoryModel extends database{
         return array("title"=>"Delete Category","data"=>$data);  
     }
     public function updateForm(){
-   $data=$this->_categoryform('delete').'<div class="separator"><label class="label">Select Category</label><select class="select" name="id"><option value="">--select category--</option>'.$this->categoryDriver()->option().'</select><span id="error_id"></span></div><div class="submitdiv separator "><label class="label">New Name</label><input class="textbox" type="text" name="name" /><span id="error_name"></span></div><div class="submitdiv separator "><input class="submit_btn" type="submit" value="Add" /></div> </form>';
-        return array("title"=>"Update Category","data"=>$data);
-        
+        $data=$this->_categoryform('delete').'<div class="separator"><label class="label">Select Category</label><select class="select" name="id"><option value="">--select category--</option>'.$this->categoryDriver()->option().'</select><span id="error_id"></span></div><div class=" separator "><label class="label">New Name</label><input class="textbox" type="text" name="name" /><span id="error_name"></span></div><div class="submitdiv separator "><input class="submit_btn" type="submit" value="Add" /></div> </form>';
+        return array("title"=>"Update Category","data"=>$data);       
+    }
+    public function subaddForm(){
+        $data=$this->_categoryform('subadd').'<div class="separator"><label class="label">Select Category</label><select class="select" name="id"><option value="">--select category--</option>'.$this->categoryDriver()->option().'</select><span id="error_id"></span></div><div class=" separator "><label class="label">New Name</label><input class="textbox" type="text" name="name" /><span id="error_name"></span></div><div class="submitdiv separator "><input class="submit_btn" type="submit" value="Add" /></div> </form>';
+        return array("title"=>"Add Sub Category","data"=>$data);       
+    }
+    public function subaddstore(){
+        $this->_subcategorymodel('add');
+    }
+    private function _subcategorymodel($type){
+        $data=$this->DB_refreshdata($_POST);
+        switch($type){
+            case 'add':
+                $path='add';
+                $this->_tmp="sp_category('subadd','\'$data[name]\',\'$data[id]\'')";
+            break;
+            case 'edit':
+                $path='edit';
+                $this->_tmp='';
+            break;
+            case 'delete':
+                $path='delete';
+                $this->_tmp='';
+            break;        
+        }
+        $this->storedProcedure($this->_tmp);
+        $this->DB_adminredirect('category/sub?type='.$path.'&msg=add_ok');        
     }
     public function select(){
         $data=$this->categoryDriver()->get();
@@ -41,6 +67,15 @@ class categoryModel extends database{
         $data=$this->DB_refreshdata($_POST);
         $this->storedProcedure("sp_category('delete','$data[name]')");
         $this->DB_adminredirect('category/?type=delete&msg=del_ok');        
+    }
+    public function selectsubcategory(){
+       //$data=$this->DB_refreshdata($_GET);
+       $data=$_GET;
+       $res=$this->storedProcedure("sp_category('subcategory','$data[id]')");
+       while($data=$res->fetch_object()){
+           $this->_tmp.='<option value="'.$data->id.'">'.$data->name.'</option>';
+       }
+       return $this->_tmp;
     }
     
 }

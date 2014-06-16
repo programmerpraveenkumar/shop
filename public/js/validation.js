@@ -140,6 +140,7 @@ function ajax_call(funName,type,data){
         }, 
         ajax:function(){
             var xmlhttp;
+            //alert(URL);
         if (window.XMLHttpRequest)
           {// code for IE7+, Firefox, Chrome, Opera, Safari
           xmlhttp=new XMLHttpRequest();
@@ -180,7 +181,7 @@ function ajax_call(funName,type,data){
 }
 function load(wch){
     data={"reg_ok":"registered successfully","no":'UserName or Password is wrong',
-    "add":"Added Successfully","sub_exist":"ERROR::Delete the subcategory for this selected category(You can't delete)",
+    "add_ok":"Added Successfully","sub_exist":"ERROR::Delete the subcategory for this selected category(You can't delete)",
     "delete":"Successfully Deleted",
     "update":"updated successfully"
     

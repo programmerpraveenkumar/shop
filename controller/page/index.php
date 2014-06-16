@@ -15,7 +15,9 @@ class index extends controller{
     }
     private function listt(){
         $this->view->render('page/index');
-        die('list');
-        
+        die('list');        
+    }
+    private function subcategory(){
+        echo $this->model->call('category','selectsubcategory');
     }
 }
