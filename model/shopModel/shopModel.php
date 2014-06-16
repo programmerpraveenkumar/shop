@@ -53,5 +53,23 @@ class shopModel extends database{
                 $data=$this->DB_refreshdata($_POST);                
                 $data=$this->onefetchstoredProcedure("sp_product('add','(shopname,productname,category,sub_category,street,city,district,state,country,mobile,phone,description)values(\'$data[shop_name]\',\'$data[product_name]\',\'$data[category]\',\'$data[sub_category]\',\'$data[street]\',\'$data[city]\',\'$data[district]\',\'$data[state]\',\'$data[country]\',\'$data[mobile]\',\'$data[phone]\',\'$data[description]\')')");
     }
+    public function sliderimageform(){
+        $field=$this->_formfield(array("name"=>"image","label"=>"Select Image","type"=>"file"));
+        $field.=$this->_formfield(array("name"=>"submitt","label"=>"","type"=>"button","value"=>"Store","onclick"=>'ajaxvalidation({\'type\':\'submit\',\'name\':\'slider\'},{\'1d\':[\'image\',\'file\'],\'tyd\':[\'ajax\',\'ajax\']})'));
+        $data='<form name="slider" action="'.ADMIN.'shop/sliderimagestore" method="post" enctype="multipart/form-data">'.$field.'</form>';
+        return array("title"=>"Product Add Form","data"=>$data);
+    }
+    public function sliderimagestore(){
+        if(isset($_FILES['image']['name'])){
+            $name=uniqid();
+            if(!move_uploaded_file($_FILES['image']['tmp_name'],'photo/slider/'.$name.'.jpg')){
+                error::developererror('upload files error');
+            }
+            $this->DB_adminredirect('shop/sliderimage?msg=up_ok');            
+        }
+        else{
+            $this->DB_adminredirect('shop/sliderimage?msg=empty');
+        }
+    }
 }
                                                                             

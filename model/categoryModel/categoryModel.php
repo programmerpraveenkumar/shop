@@ -36,11 +36,11 @@ class categoryModel extends database{
             break;
             case 'edit':
                 $path='edit';
-                $this->_tmp='';
+                $this->_tmp="sp_category('update','name=\'$data[name]\' where id=$data[id]')";
             break;
             case 'delete':
                 $path='delete';
-                $this->_tmp='';
+                $this->_tmp="sp_category('delete','$data[name]')";
             break;        
         }
         $this->storedProcedure($this->_tmp);

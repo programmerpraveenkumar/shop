@@ -16,11 +16,15 @@ class shop extends controller{
     private function indexproduct(){
         die('index product');
     }
-    private function sliderimage(){
-        die('images');
+    private function sliderimage(){        
+        $this->view->data=$this->model->call('shop','sliderimageform');
+        $this->view->render('admin/index');
     }
     private function productstore(){
         $this->model->call('shop','shopstore');
+    }
+    private function sliderimagestore(){
+        $this->model->call('shop','sliderimagestore');
     }
 }
 
