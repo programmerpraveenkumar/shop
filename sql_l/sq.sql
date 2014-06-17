@@ -92,6 +92,7 @@ CREATE TABLE `product` (
   `description` text,
   `index_ad` int(11) DEFAULT NULL,
   `rank` int(11) DEFAULT NULL,
+  `pincode` varchar(45) DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `categoryid_idx` (`category`),
   KEY `sub_category_id_idx` (`sub_category`),
@@ -106,7 +107,7 @@ CREATE TABLE `product` (
 
 LOCK TABLES `product` WRITE;
 /*!40000 ALTER TABLE `product` DISABLE KEYS */;
-INSERT INTO `product` VALUES (1,'sivasakthi illam',1,'product nam',7,'r.s.road','vadamadurai','dindigulk','fghfd','ghfdhfg','8870079862','0455123854','sad',NULL,NULL),(2,'sivasakthi illam',1,'product nam',7,'r.s.road','vadamadurai','dindigulk','fghfd','ghfdhfg','8870079862','0455123854','sad',NULL,NULL),(3,'sivasakthi',1,'product nam',8,'r.s.road','vadamadurai','dindigul','tamilnadu','india','8870079862','0455123854','sample',NULL,NULL),(4,'sivasakthi',1,'product nam',8,'r.s.road','vadamadurai','dindigul','tamilnadu','india','8870079862','0455123854','sample',NULL,NULL),(5,'sivasakthi',1,'product nam',8,'r.s.road','vadamadurai','dindigul','tamilnadu','india','8870079862','0455123854','sample',NULL,NULL),(6,'sivasakthi',1,'product nam',8,'r.s.road','vadamadurai','dindigul','tamilnadu','india','8870079862','0455123854','sample',NULL,NULL),(7,'sivasakthi',1,'product nam',8,'r.s.road','vadamadurai','dindigul','tamilnadu','india','8870079862','0455123854','sample',NULL,NULL);
+INSERT INTO `product` VALUES (1,'sivasakthi illam',1,'product nam',7,'r.s.road','vadamadurai','dindigulk','fghfd','ghfdhfg','8870079862','0455123854','sad document tetsisn this sammmple ',NULL,NULL,'45465'),(2,'sivasakthi illam',1,'product nam',7,'r.s.road','vadamadurai','dindigulk','fghfd','ghfdhfg','8870079862','0455123854','sad',NULL,NULL,NULL),(3,'sivasakthi',1,'product nam',8,'r.s.road','vadamadurai','dindigul','tamilnadu','india','8870079862','0455123854','sample',NULL,NULL,NULL),(4,'sivasakthi',1,'product nam',8,'r.s.road','vadamadurai','dindigul','tamilnadu','india','8870079862','0455123854','sample',NULL,NULL,NULL),(5,'sivasakthi',1,'product nam',8,'r.s.road','vadamadurai','dindigul','tamilnadu','india','8870079862','0455123854','sample',NULL,NULL,NULL),(6,'sivasakthi',1,'product nam',8,'r.s.road','vadamadurai','dindigul','tamilnadu','india','8870079862','0455123854','sample',NULL,NULL,NULL),(7,'sivasakthi',2,'test namef',8,'r.s.road','vadamadurai','dindigul','tamilnadu','india','8870079862','0455123854','sample',NULL,NULL,NULL);
 /*!40000 ALTER TABLE `product` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -193,6 +194,12 @@ elseif command='add_comments' then
 call executequery('result',concat('insert into comments ',commandtext));
 elseif command='sel_comments' then
 select * from comments where shop_id=commandtext;
+elseif command='product_search' then
+select p.*,c.name as categoryname from category as c inner join product as p on c.id=p.category where c.name=commandtext limit 0,5;
+elseif command='id_name_product' then
+select * from product where id=commandtext;
+elseif command='by_rank' then
+select * from product order by rank limit 0,9;
 end if;
 END ;;
 DELIMITER ;
@@ -210,4 +217,4 @@ DELIMITER ;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2014-06-17  6:16:31
+-- Dump completed on 2014-06-17 17:23:49
