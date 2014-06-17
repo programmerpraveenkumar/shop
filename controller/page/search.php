@@ -10,11 +10,12 @@ class search extends controller{
         }
     }
     private function initial(){
-        $this->view->data=$this->model->call('user','index');
+        //call sp_product('product_search','testw')
+        $this->view->data=$this->model->call('shop','searchproduct');
         $this->view->render('page/search');
     }
     private function productalone(){
-        //$this->view->data=$this->model->call('user','index');
+        $this->view->data=$this->model->call('shop','getproductalone');       
         $this->view->render('page/product');
     }
     

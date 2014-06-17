@@ -2074,15 +2074,15 @@ input[type="checkbox"]:checked + label.color-checkbox{
 	height:400px;
 }
 
-.flexsliderBig #slide1 {
+.flexsliderBig #slide1_del_neha {
 	background: url(../img/slide1.jpg) no-repeat;
 }
 
-.flexsliderBig #slide2 {
+.flexsliderBig #slide2_del_neha {
 	background: url(../img/slide3.jpg) no-repeat;
 }
 
-.flexsliderBig #slide3 {
+.flexsliderBig #slide3_del_neha {
 	background: url(../img/slide2.jpg) no-repeat;
 }
 

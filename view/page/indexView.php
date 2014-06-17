@@ -1,57 +1,20 @@
 <?php include 'include/page/header.php'; ?>    
 
-		
+
 			<!-- Content -->
-			<div class="row content">
-				
-                
+			<div class="row content">               
                 <!-- Slider -->
                 <section class="slider col-lg-12 col-md-12 col-sm-12">
                     <div class="flexslider flexsliderBig">
-                        <ul class="slides">
-                            <li id="slide1">
-                                
-                                <div class = "text">
-					
-                                    <img src="<?php echo INCLUDE_FILE  ?>img/slide1.jpg" alt="Product1">
-                                            <div class = "bg"></div>
-
-                                                <div class = "title">
-                                                        <h2>The New <strong>Laptop</strong></h2>
-                                                </div>
-
-                                                <div class = "desc">
-                                                        <h3>All the power in your hands!</h3>
-                                                        <span>From <span class="price">$960.00</span></span>
-                                                </div>
-
-                                                <div class = "button">
-                                                        <a class="button big red" href="#">Buy Now</a>
-                                                </div>
-
-                                        </div>
-                            </li>
-                            <li id="slide2">
-								<div class = "text">
-								
-									<div class = "bg"><img src="<?php echo INCLUDE_FILE  ?>img/slide1.jpg" alt="Product1"></div>
-								
-									<div class = "title">
-										<h2><strong>The New Studio<br>Original Headphones</strong></h2>
-									</div>
-									
-									<div class = "desc">
-										<h3>Lorem ipsum dolor</h3>
-										<span>From <span class="price">$399.00</span></span>
-									</div>
-									
-									<div class = "button">
-										<a class="button big red" href="#">Buy Now</a>
-									</div>
-									
-								</div>
-                            </li>                           
-                        </ul>
+                        <div class="mp-slider">
+                                <ul class="items">
+                                    <li><img src="<?php echo INCLUDE_FILE ?>img/slide1.jpg" alt="" /></li>                                    
+<!--                                    <li><img src="<?php echo INCLUDE_FILE ?>img/slide2.jpg" alt="" /></li>
+                                    <li><img src="<?php echo INCLUDE_FILE ?>img/slide3.jpg" alt="" /></li>-->
+                                </ul>                         
+                                <a href="#" class="mp-prev"></a>
+                                <a href="#" class="mp-next"></a>
+                        </div>
                     </div>
                 </section>
                 <!-- /Slider -->
@@ -81,28 +44,15 @@
 						<!-- Carousel -->
 						
 							
-							<div class="owl-carousel" data-max-items="3">
-									<?php  if(isset($this->data['prodtct']['0']))echo $this->data['prodtct']['0'];?>
-															
-									
-									
-									<!-- /Slide -->
-									
-									
-							</div>
-                                                <div class="owl-carousel" data-max-items="3">
-									
-									<?php  if(isset($this->data['prodtct']['1s']))echo $this->data['prodtct']['1'];?>								
-									
-									
-									<!-- /Slide -->
-									
-									
+                                                    <div class="owl-carousel" data-max-items="3">
+                                                                    <?php  if(isset($this->data['product']['0']))echo $this->data['product']['0'];?>
+                                                    </div>
+                                                    <div class="owl-carousel" data-max-items="3">
+                                                                <?php  if(isset($this->data['product']['1']))echo $this->data['product']['1'];?>								
 							</div>
                                                 <div class="owl-carousel" data-max-items="3">									
-                                                                <?php  if(isset($this->data['prodtct']['2']))echo $this->data['prodtct']['2'];?>								
-								
-                                                </div>
+                                                                <?php  if(isset($this->data['product']['2']))echo $this->data['product']['2'];?>								
+				                </div>
 						
 						<!-- /Carousel -->
 						

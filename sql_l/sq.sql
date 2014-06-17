@@ -1,6 +1,6 @@
 CREATE DATABASE  IF NOT EXISTS `shop` /*!40100 DEFAULT CHARACTER SET latin1 */;
 USE `shop`;
--- MySQL dump 10.13  Distrib 5.6.13, for Win32 (x86)
+-- MySQL dump 10.13  Distrib 5.6.11, for Win32 (x86)
 --
 -- Host: 127.0.0.1    Database: shop
 -- ------------------------------------------------------
@@ -27,8 +27,11 @@ DROP TABLE IF EXISTS `category`;
 CREATE TABLE `category` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `name` varchar(55) DEFAULT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=latin1;
+  `p_id` int(11) DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  KEY `parent_id_idx` (`p_id`),
+  CONSTRAINT `parent_id` FOREIGN KEY (`p_id`) REFERENCES `category` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION
+) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -37,7 +40,7 @@ CREATE TABLE `category` (
 
 LOCK TABLES `category` WRITE;
 /*!40000 ALTER TABLE `category` DISABLE KEYS */;
-REPLACE INTO `category` VALUES (1,'update'),(2,'testw'),(3,'szdsadasafse'),(5,'kumar');
+INSERT INTO `category` VALUES (1,'update',NULL),(2,'testw',NULL),(3,'szdsadasafse',NULL),(5,'kumar',NULL),(6,'reabsae',NULL),(7,'test',1),(8,'praveen',1);
 /*!40000 ALTER TABLE `category` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -78,7 +81,6 @@ CREATE TABLE `product` (
   `shopname` varchar(55) NOT NULL,
   `category` int(11) DEFAULT NULL,
   `productname` varchar(155) DEFAULT NULL,
-  `productcol` varchar(45) DEFAULT NULL,
   `sub_category` int(11) DEFAULT NULL,
   `street` varchar(45) DEFAULT NULL,
   `city` varchar(45) DEFAULT NULL,
@@ -95,7 +97,7 @@ CREATE TABLE `product` (
   KEY `sub_category_id_idx` (`sub_category`),
   CONSTRAINT `categoryid` FOREIGN KEY (`category`) REFERENCES `category` (`id`) ON DELETE SET NULL ON UPDATE NO ACTION,
   CONSTRAINT `sub_category_id` FOREIGN KEY (`sub_category`) REFERENCES `category` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION
-) ENGINE=InnoDB DEFAULT CHARSET=latin1 COMMENT='	';
+) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=latin1 COMMENT='	';
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -104,6 +106,7 @@ CREATE TABLE `product` (
 
 LOCK TABLES `product` WRITE;
 /*!40000 ALTER TABLE `product` DISABLE KEYS */;
+INSERT INTO `product` VALUES (1,'sivasakthi illam',1,'product nam',7,'r.s.road','vadamadurai','dindigulk','fghfd','ghfdhfg','8870079862','0455123854','sad',NULL,NULL),(2,'sivasakthi illam',1,'product nam',7,'r.s.road','vadamadurai','dindigulk','fghfd','ghfdhfg','8870079862','0455123854','sad',NULL,NULL),(3,'sivasakthi',1,'product nam',8,'r.s.road','vadamadurai','dindigul','tamilnadu','india','8870079862','0455123854','sample',NULL,NULL),(4,'sivasakthi',1,'product nam',8,'r.s.road','vadamadurai','dindigul','tamilnadu','india','8870079862','0455123854','sample',NULL,NULL),(5,'sivasakthi',1,'product nam',8,'r.s.road','vadamadurai','dindigul','tamilnadu','india','8870079862','0455123854','sample',NULL,NULL),(6,'sivasakthi',1,'product nam',8,'r.s.road','vadamadurai','dindigul','tamilnadu','india','8870079862','0455123854','sample',NULL,NULL),(7,'sivasakthi',1,'product nam',8,'r.s.road','vadamadurai','dindigul','tamilnadu','india','8870079862','0455123854','sample',NULL,NULL);
 /*!40000 ALTER TABLE `product` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -150,13 +153,17 @@ DELIMITER ;;
 CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_category`(in command varchar(55),in commandtext text)
 BEGIN
 if command='add' then
-insert ignore into category(name)values(commandtext);
+insert into category(name)values(commandtext);
 elseif command='select' then
-select id,name from category;
+select id,name from category where p_id is null ;
 elseif command='update' then
 call executequery('count',concat('update category set ',commandtext));
 elseif command='delete' then
 delete from category where id=commandtext;
+elseif command='subadd' then
+call executequery('count',concat('insert into category(name,p_id)values(',commandtext,')'));
+elseif command='subcategory' then
+select id,name from category where p_id=commandtext;
 end if;
 END ;;
 DELIMITER ;
@@ -177,7 +184,7 @@ DELIMITER ;;
 CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_product`(in command varchar(55),in commandtext text)
 BEGIN
 if command='add' then
-call executequery('result',concat('insert into product ',commandtext));
+call executequery('last_id',concat('insert into product ',commandtext));
 elseif command='cat_select_id' then
 select * from product where cat_id=commandtext;
 elseif command='cat_select_name' then
@@ -203,4 +210,4 @@ DELIMITER ;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2014-06-13 13:22:20
+-- Dump completed on 2014-06-17  6:16:31

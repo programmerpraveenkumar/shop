@@ -89,56 +89,65 @@ class shopModel extends database{
     public function sliderimage(){
         $path='photo/slider/';
         $val=array_values(array_diff(scandir($path),array('.','..')));
-        die('shop model-->sliderimage');
+        die('shop-->sliderimage');
         for($i=0;$i<count($val);$i++){
             
         }
     }
-    
-    /*
-
-     * <div>
-										<!-- Carousel Item -->
-										<div class="product">
-											
-											<div class="product-image">
-												<img src="img/products/sample1.jpg" alt="Product1">
-												<a href="products_page_v1.html" class="product-hover">
-													<i class="icons icon-eye-1"></i> Quick View
-												</a>
-											</div>
-											
-											<div class="product-info">
-												<h5><a href="products_page_v1.html">Lorem ipsum dolor sit amet</a></h5>
-												<span class="price">$251.00<?php echo $i; ?></span>
-												<div class="rating readonly-rating" data-score="4"></div>
-											</div>
-											
-											<div class="product-actions">
-												<span class="add-to-cart">
-													<span class="action-wrapper">
-														<i class="icons icon-basket-2"></i>
-														<span class="action-name">Add to cart</span>
-													</span >
-												</span>
-												<span class="add-to-favorites">
-													<span class="action-wrapper">
-														<i class="icons icon-heart-empty"></i>
-														<span class="action-name">Add to wishlist</span>
-													</span>
-												</span>
-												<span class="add-to-compare">
-													<span class="action-wrapper">
-														<i class="icons icon-docs"></i>
-														<span class="action-name">Add to Compare</span>
-													</span>
-												</span>
-											</div>
-											
-										</div>
-										<!-- /Carousel Item -->
-									</div>
-     * 
-     *      */
+    public function searchproduct(){
+                $recv=isset($_GET['category'])?$_GET['category']:'update';
+                $res=$this->storedProcedure("sp_product('product_search','$recv')");
+                if($res->num_rows<=0){
+                    return array("searchcontent"=>"no record Found","categorytitle"=>"No record found for this search","categoryleft"=>$this->categorydriver()->leftMenu());
+                }
+                while($data=$res->fetch_object()){
+                    $path=PAGE_PATH.'search/productalone?id='.$data->id;
+                    $this->_tmp.='<tr>
+                                	<td class="wishlist-image">
+                                    	<a href="'.$path.'"><img src="'.PATH.'photo/photo/getindexImagefromsearch?id='.$data->id.'" alt="Product1"></a>
+                                    </td>
+                                    <td class="wishlist-info">
+                                    	<h5><a href="'.$path.'">'.$data->productname.'</a></h5>
+                                        <span class="product-category"><a href="'.$path.'">'.$data->categoryname.'</a></span>
+										<div class="rating readonly-rating" data-score="4"></div>
+                                    </td>                                    
+                                    <td class="wishlist-actions"><p>'.$data->shopname.',</p><p>'.$data->street.' ,'.$data->city.'-'.$data->pincode.'</p>'.$data->mobile.'
+                                    </td>
+                                </tr>';
+                }
+                return array("searchcontent"=>$this->_tmp,"categorytitle"=>"title f the category","categoryleft"=>$this->categorydriver()->leftMenu());
+    }    
+    public function getproductalone(){        
+         $res=$this->onefetchstoredProcedure("sp_product('id_name_product','1')");         
+        return array("id"=>$res->id,"title"=>$res->productname,"description"=>$res->description,"categorylist"=>$this->categorydriver()->optionwithnames(),"categoryleft"=>$this->categorydriver()->leftMenu(),
+                "moreimage"=>$this->_getsliderMoreimage($res->id),
+                "address"=>"<tr><td>$res->street</td><tr><td>$res->city</td></tr><tr><td>$res->district-$res->pincode</td></tr><tr><td>$res->mobile</td></tr>"
+                );      
+    }   
+    private function _getsliderMoreimage($id){
+    $path='photo/product/'.$id.'/';
+            if(!file_exists($path)){                
+                return false;
+            }
+            else{
+                   $image=array_values(array_diff(scandir($path),array('.','..')));
+                       for($i=0;$i<count($image);$i++){
+                           if($image[$i]!='main.jpg'){                           
+                               $path='';
+                                   $this->_tmp.='<li>
+                    <a class="fancybox" rel="product-images" href="'.PHOTO_PATH.'product/".$id></a>												
+                    <img src="img/products/single1.jpg" data-large="img/products/single1.jpg" alt="" />
+                </li>';
+                       }
+        
+                       
+            }
+            return $this->_tmp;      
+        }
+     }
 }
-                                                                            
+ /*
+
+  * 
+  * 
+  *   */                                                                           
