@@ -2,6 +2,11 @@
 use driver\categoryDRIVER as categoryDRIVER;
 class shopModel extends database{
     private $_tmp;
+    private $_path;
+            public function __construct(){
+               parent::__construct();
+                $this->_path='photo/';
+            }
     public function categoryDriver(){
         return new categoryDRIVER();
     }
@@ -42,7 +47,7 @@ class shopModel extends database{
         $field.=$this->_formfield(array("name"=>"description","label"=>"Description","type"=>"textarea"));
         $field.=$this->_formfield(array("name"=>"mainimage","label"=>"Main Product Image","type"=>"file"));
         $field.=$this->_formfield(array("name"=>"submitt","label"=>"","type"=>"button","value"=>"Store","onclick"=>'ajaxvalidation({\'type\':\'submit\',\'name\':\'shopaddform\'},{\'1d\':[\'product_name\',\'empty\'],\'2d\':[\'category\',\'empty\'],\'3d\':[\'sub_category\',\'empty\'],\'4d\':[\'shop_name\',\'empty\'],\'5d\':[\'street\',\'empty\'],\'6d\':[\'city\',\'empty\'],\'7d\':[\'district\',\'empty\'],\'8d\':[\'state\',\'empty\'],\'9d\':[\'country\',\'empty\'],\'mod\':[\'mobile\',\'number\'],\'10d\':[\'phone\',\'empty\'],\'11d\':[\'description\',\'empty\'],\'12d\':[\'mainimage\',\'file\'],\'tyd\':[\'ajax\',\'ajax\']})'));
-        $data='<form action="'.ADMIN.'shop/productstore" method="post"  class="form" name="shopaddform">'.$field.'</form>';
+        $data='<form action="'.ADMIN.'shop/productstore" method="post" enctype="multipart/form-data" class="form" name="shopaddform">'.$field.'</form>';
        
         return array("title"=>"Product Add Form","data"=>$data);
     }
@@ -51,7 +56,17 @@ class shopModel extends database{
     }
     public function shopstore(){
                 $data=$this->DB_refreshdata($_POST);                
-                $data=$this->onefetchstoredProcedure("sp_product('add','(shopname,productname,category,sub_category,street,city,district,state,country,mobile,phone,description)values(\'$data[shop_name]\',\'$data[product_name]\',\'$data[category]\',\'$data[sub_category]\',\'$data[street]\',\'$data[city]\',\'$data[district]\',\'$data[state]\',\'$data[country]\',\'$data[mobile]\',\'$data[phone]\',\'$data[description]\')')");
+                $res=$this->onefetchstoredProcedure("sp_product('add','(shopname,productname,category,sub_category,street,city,district,state,country,mobile,phone,description)values(\'$data[shop_name]\',\'$data[product_name]\',\'$data[category]\',\'$data[sub_category]\',\'$data[street]\',\'$data[city]\',\'$data[district]\',\'$data[state]\',\'$data[country]\',\'$data[mobile]\',\'$data[phone]\',\'$data[description]\')')");               
+                if($res->result=='ok') {
+                   $this->_path.='product/'.$res->id.'/';                   
+                   mkdir($this->_path);
+                   move_uploaded_file($_FILES['mainimage']['tmp_name'], $this->_path.'main.jpg');
+                   $this->DB_adminredirect('shop?msg=add_ok');
+               }
+               else{
+                   $this->DB_adminredirect('shop?msg=add_er');
+               }
+                       
     }
     public function sliderimageform(){
         $field=$this->_formfield(array("name"=>"image","label"=>"Select Image","type"=>"file"));
@@ -79,5 +94,51 @@ class shopModel extends database{
             
         }
     }
+    
+    /*
+
+     * <div>
+										<!-- Carousel Item -->
+										<div class="product">
+											
+											<div class="product-image">
+												<img src="img/products/sample1.jpg" alt="Product1">
+												<a href="products_page_v1.html" class="product-hover">
+													<i class="icons icon-eye-1"></i> Quick View
+												</a>
+											</div>
+											
+											<div class="product-info">
+												<h5><a href="products_page_v1.html">Lorem ipsum dolor sit amet</a></h5>
+												<span class="price">$251.00<?php echo $i; ?></span>
+												<div class="rating readonly-rating" data-score="4"></div>
+											</div>
+											
+											<div class="product-actions">
+												<span class="add-to-cart">
+													<span class="action-wrapper">
+														<i class="icons icon-basket-2"></i>
+														<span class="action-name">Add to cart</span>
+													</span >
+												</span>
+												<span class="add-to-favorites">
+													<span class="action-wrapper">
+														<i class="icons icon-heart-empty"></i>
+														<span class="action-name">Add to wishlist</span>
+													</span>
+												</span>
+												<span class="add-to-compare">
+													<span class="action-wrapper">
+														<i class="icons icon-docs"></i>
+														<span class="action-name">Add to Compare</span>
+													</span>
+												</span>
+											</div>
+											
+										</div>
+										<!-- /Carousel Item -->
+									</div>
+     * 
+     *      */
 }
                                                                             
