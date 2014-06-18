@@ -44,23 +44,23 @@ class userModel extends database{
                 <!-- /Carousel Item -->
         </div>';
     }
-    $max=9;
-    if(count($load)<$max){
-        $max=count($load);
-    }
-    $another=array();
-    $j=0;
-    for($i=0;$i<$max;$i++){
-        if($i%3==0 && $i!=0){
-            $j++;
-           
-        }
-         $another[$j].=$load[$i];   
-    }
+//    $max=9;
+//    if(count($load)<$max){
+//        $max=count($load);
+//    }
+//    $another=array();
+//    $j=0;
+//    for($i=0;$i<$max;$i++){
+//        if($i%3==0 && $i!=0){
+//            $j++;
+//           
+//        }
+//         $another[$j].=$load[$i];   
+//    }
   
     //echo count($another);
     //die();
-   return array($another[0],$another[1],$another[2]);     
+   return array_chunk($load,'3');     
     }
 }
 ?>
