@@ -52,6 +52,9 @@ class shopModel extends database{
     public function shopstore(){
                 $data=$this->DB_refreshdata($_POST);                
                 $data=$this->onefetchstoredProcedure("sp_product('add','(shopname,productname,category,sub_category,street,city,district,state,country,mobile,phone,description)values(\'$data[shop_name]\',\'$data[product_name]\',\'$data[category]\',\'$data[sub_category]\',\'$data[street]\',\'$data[city]\',\'$data[district]\',\'$data[state]\',\'$data[country]\',\'$data[mobile]\',\'$data[phone]\',\'$data[description]\')')");
+                if($data->result=='ok'){
+                    //mkdir();
+                }
     }
     public function sliderimageform(){
         $field=$this->_formfield(array("name"=>"image","label"=>"Select Image","type"=>"file"));
@@ -78,6 +81,13 @@ class shopModel extends database{
         for($i=0;$i<count($val);$i++){
             
         }
+    }
+    public function search(){
+        
+
+    }
+    public function productalone(){
+        
     }
 }
                                                                             
