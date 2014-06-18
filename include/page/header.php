@@ -1,7 +1,5 @@
 <!DOCTYPE html>
-
 <html>
-
     <head>
         
         <!-- Meta Tags -->
@@ -15,15 +13,15 @@
 		<link href='http://fonts.googleapis.com/css?family=Roboto:400,300,300italic,400italic,500,700,900,700italic,500italic' rel='stylesheet' type='text/css'>
 		
         <!-- Stylesheets -->
-        <link rel="stylesheet" href="<?php echo INCLUDE_FILE ?>css/bootstrap.min.css">
-		<link rel="stylesheet" href="<?php echo INCLUDE_FILE ?>css/perfect-scrollbar.css">
-        <link rel="stylesheet" href="<?php echo INCLUDE_FILE ?>css/style.css">
-        <link rel="stylesheet" href="<?php echo INCLUDE_FILE ?>css/flexslider.css" type="text/css" media="screen" />
-		<link rel="stylesheet" href="<?php echo INCLUDE_FILE ?>css/fontello.css">
-   		<link rel="stylesheet" href="<?php echo INCLUDE_FILE ?>css/animation.css">
-		<link rel="stylesheet" href="<?php echo INCLUDE_FILE ?>css/owl.carousel.css">
-		<link rel="stylesheet" href="<?php echo INCLUDE_FILE ?>css/owl.theme.css">
-		<link rel="stylesheet" href="<?php echo INCLUDE_FILE ?>css/chosen.css">
+            <link rel="stylesheet" href="<?php echo INCLUDE_FILE ?>css/bootstrap.min.css">
+            <link rel="stylesheet" href="<?php echo INCLUDE_FILE ?>css/perfect-scrollbar.css">
+            <link rel="stylesheet" href="<?php echo INCLUDE_FILE ?>css/style.css">
+            <link rel="stylesheet" href="<?php echo INCLUDE_FILE ?>css/flexslider.css" type="text/css" media="screen" />
+            <link rel="stylesheet" href="<?php echo INCLUDE_FILE ?>css/fontello.css">
+            <link rel="stylesheet" href="<?php echo INCLUDE_FILE ?>css/animation.css">
+            <link rel="stylesheet" href="<?php echo INCLUDE_FILE ?>css/owl.carousel.css">
+            <link rel="stylesheet" href="<?php echo INCLUDE_FILE ?>css/owl.theme.css">
+            <link rel="stylesheet" href="<?php echo INCLUDE_FILE ?>css/chosen.css">
         
         <!--[if lt IE 9]>
             <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
@@ -32,6 +30,10 @@
 		<!--[if IE 7]>
 			<link rel="stylesheet" href="css/fontello-ie7.css">
 		<![endif]-->
+                <script type="text/javascript" src="<?php echo INCLUDE_FILE ?>js/jquery-1.7.1.min.js"></script>
+                <script type="text/javascript" src="<?php echo INCLUDE_FILE ?>js/tms-0.4.1.js"></script>                
+                <script type="text/javascript" src="<?php echo INCLUDE_FILE ?>js/neha.js" ></script>
+                <script type="text/javascript" src="<?php echo INCLUDE_FILE ?>js/slider.js"></script>                
                 <script type="text/javascript">
                 USER_PATH='<?php echo PAGE_PATH; ?>';    
                 ADMINPATH='<?php echo ADMIN; ?>';    
@@ -218,28 +220,30 @@
 						</ul>
 						
                                             <div id="search-bar" class="searchbar-visible" style="display: block; opacity: 1; left: 0px; right: 1px;">
-							
+							  <form name="searchquerybox" action="<?php echo PAGE_PATH ?>search" method="get">
 							<div class="col-lg-12 col-md-12 col-sm-12">
-                            	<table id="search-bar-table">
+                                                          
+                                                            <table id="search-bar-table">
                                     <tr>
+                                        
                                     	<td class="search-column-1">
-<!--                                            <p><span class="grey">Popular Searches:</span> <a href="#">accessories</a>, <a href="#">audio</a>, <a href="#">camera</a>, <a href="#">phone</a>, <a href="#">storage</a>, <a href="#">more</a></p>-->
-                                            <input type="text" placeholder="Enter your keyword">
+                                            <input type="text" name="searchword" placeholder="test Enter your keyword">
                                         </td>
                                         <td class="search-column-2">
                                         	<p class="align-right"><a href="#">Advanced Search</a></p>
-                                        	<select class="chosen-select-search">
+                                                <select name="category" class="chosen-select-search">
                                                 <?php  if(isset($this->data['categorylist'])) echo $this->data['categorylist']; ?>
                                             </select>
                                 		</td>
                                     </tr>
                                 </table>
 							</div>
-							<div id="search-button">
-								<input type="submit" value="">
-								<i class="icons icon-search-1"></i>
+							<div id="search-button" onclick="functions.mainFormsubmit()">
+								
+                                                            <i class="icons icon-search-1" onclick="functions.mainFormsubmit()"></i>
 							</div>
-						</div>
+                                                    </form>	
+                                            </div>
 						
 					</nav>
                                 </div>

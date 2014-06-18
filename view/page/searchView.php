@@ -6,7 +6,7 @@
 				
                 <div class="col-lg-12 col-md-12 col-sm-12">
                 	<div class="breadcrumbs">
-                    	<p><a href="#">Home</a> <i class="icons icon-right-dir"></i> Wishlist</p>
+                    	<p><a href="#">Home</a> <i class="icons icon-right-dir"></i><?php if(isset($this->data['categorytitle'])) echo  $this->data['categorytitle']?></p>
                     </div>
                 </div>
                 
@@ -17,16 +17,12 @@
                     
                         <!-- Heading -->
                         <div class="col-lg-12 col-md-12 col-sm-12">
-                            
-                            <div class="carousel-heading">
-                                <h4>My wishlist</h4>
-                            </div>
+                           
                             
                         </div>
-                        <!-- /Heading -->
-                        
+                        <!-- /Heading -->                        
                         <div class="col-lg-6 col-md-6 col-sm-6">
-                        	<div class="category-results">
+<!--                        	<div class="category-results">
                             	<p>Results 1-6 of 6</p>
                                 <p>Show 
                                 <select class="chosen-select">
@@ -37,7 +33,7 @@
                                 </select>
                                 per page
                                 </p>
-                            </div>
+                            </div>-->
                         </div>
                         
                         <div class="col-lg-6 col-md-6 col-sm-6">
@@ -61,240 +57,16 @@
                             	
                                 <tr>
                                 	<th class="wishlist-image">Product Images</th>
-                                    <th>Title/Category</th>
-                                    <th>Price</th>
-                                    <th>Action</th>
+                                    <th>Title/Category</th>                                     
+                                    <th>Address</th>
                                 </tr>
-                                
-                                <tr>
-                                	<td class="wishlist-image">
-                                    	<a href="#"><img src="img/products/sample1.jpg" alt="Product1"></a>
-                                    </td>
-                                    <td class="wishlist-info">
-                                    	<h5><a href="#">Lorem ipsum dolor sit amet</a></h5>
-                                        <span class="product-category"><a href="#">Computers &amp; Tablets</a></span>
-										<div class="rating readonly-rating" data-score="4"></div>
-                                    </td>
-                                    <td class="wishlist-price">
-                                    	<span class="price">$281.00</span>
-                                    </td>
-                                    <td class="wishlist-actions">
-                                    
-                                    	<div class="numeric-input">
-											<input type="text" value="1">
-											<span class="arrow-up"><i class="icons icon-up-dir"></i></span>
-											<span class="arrow-down"><i class="icons icon-down-dir"></i></span>
-										</div>
-                                        <a href="#">
-                                            <span class="add-to-cart">
-                                                <span class="action-wrapper">
-                                                    <i class="icons icon-basket-2"></i>
-                                                    <span class="action-name">Add to cart</span>
-                                                </span>
-                                            </span>
-                                        </a>
-                                        <a href="#">
-                                            <span class="add-to-trash">
-                                                <span class="action-wrapper">
-                                                    <i class="icons icon-trash-8"></i>
-                                                    <span class="action-name">Remove</span>
-                                                </span>
-                                            </span>
-                                        </a>
-                                        
-                                    </td>
-                                </tr>
-                                
-                                <tr>
-                                	<td class="wishlist-image">
-                                    	<a href="#"><img src="img/products/sample2.jpg" alt="Product1"></a>
-                                    </td>
-                                    <td class="wishlist-info">
-                                    	<h5><a href="#">Lorem ipsum dolor sit amet</a></h5>
-                                        <span class="product-category"><a href="#">Computers &amp; Tablets</a></span>
-										<div class="rating readonly-rating" data-score="4"></div>
-                                    </td>
-                                    <td class="wishlist-price">
-                                    	<span class="price">$281.00</span>
-                                    </td>
-                                    <td class="wishlist-actions">
-                                    
-                                    	<div class="numeric-input">
-											<input type="text" value="1">
-											<span class="arrow-up"><i class="icons icon-up-dir"></i></span>
-											<span class="arrow-down"><i class="icons icon-down-dir"></i></span>
-										</div>
-                                        <a href="#">
-                                            <span class="add-to-cart">
-                                                <span class="action-wrapper">
-                                                    <i class="icons icon-menu"></i>
-                                                    <span class="action-name">Select Option</span>
-                                                </span>
-                                            </span>
-                                        </a>
-                                        <a href="#">
-                                            <span class="add-to-trash">
-                                                <span class="action-wrapper">
-                                                    <i class="icons icon-trash-8"></i>
-                                                    <span class="action-name">Remove</span>
-                                                </span>
-                                            </span>
-                                        </a>
-                                        
-                                    </td>
-                                </tr>
-                                
-                                <tr>
-                                	<td class="wishlist-image">
-                                    	<a href="#"><img src="img/products/sample3.jpg" alt="Product1"></a>
-                                    </td>
-                                    <td class="wishlist-info">
-                                    	<h5><a href="#">Lorem ipsum dolor sit amet</a></h5>
-                                        <span class="product-category"><a href="#">Computers &amp; Tablets</a></span>
-										<div class="rating readonly-rating" data-score="4"></div>
-                                    </td>
-                                    <td class="wishlist-price">
-                                    	<span class="price">$281.00</span>
-                                    </td>
-                                    <td class="wishlist-actions">
-                                    
-                                    	<div class="numeric-input">
-											<input type="text" value="1">
-											<span class="arrow-up"><i class="icons icon-up-dir"></i></span>
-											<span class="arrow-down"><i class="icons icon-down-dir"></i></span>
-										</div>
-                                        <a href="#">
-                                            <span class="add-to-cart">
-                                                <span class="action-wrapper">
-                                                    <i class="icons icon-basket-2"></i>
-                                                    <span class="action-name">Add to cart</span>
-                                                </span>
-                                            </span>
-                                        </a>
-                                        <a href="#">
-                                            <span class="add-to-trash">
-                                                <span class="action-wrapper">
-                                                    <i class="icons icon-trash-8"></i>
-                                                    <span class="action-name">Remove</span>
-                                                </span>
-                                            </span>
-                                        </a>
-                                        
-                                    </td>
-                                </tr>
-                                
-                                <tr>
-                                	<td class="wishlist-image">
-                                    	<a href="#"><img src="img/products/sample4.jpg" alt="Product1"></a>
-                                    </td>
-                                    <td class="wishlist-info">
-                                    	<h5><a href="#">Lorem ipsum dolor sit amet</a></h5>
-                                        <span class="product-category"><a href="#">Computers &amp; Tablets</a></span>
-										<div class="rating readonly-rating" data-score="4"></div>
-                                    </td>
-                                    <td class="wishlist-price">
-                                    	<span class="price">$281.00</span>
-                                    </td>
-                                    <td class="wishlist-actions">
-                                    
-                                    	<div class="numeric-input">
-											<input type="text" value="1">
-											<span class="arrow-up"><i class="icons icon-up-dir"></i></span>
-											<span class="arrow-down"><i class="icons icon-down-dir"></i></span>
-										</div>
-                                        <a href="#">
-                                            <span class="add-to-cart">
-                                                <span class="action-wrapper">
-                                                    <i class="icons icon-basket-2"></i>
-                                                    <span class="action-name">Add to cart</span>
-                                                </span>
-                                            </span>
-                                        </a>
-                                        <a href="#">
-                                            <span class="add-to-trash">
-                                                <span class="action-wrapper">
-                                                    <i class="icons icon-trash-8"></i>
-                                                    <span class="action-name">Remove</span>
-                                                </span>
-                                            </span>
-                                        </a>
-                                        
-                                    </td>
-                                </tr>
-                                
-                                <tr>
-                                	<td class="wishlist-image">
-                                    	<a href="#"><img src="img/products/sample5.jpg" alt="Product1"></a>
-                                    </td>
-                                    <td class="wishlist-info">
-                                    	<h5><a href="#">Lorem ipsum dolor sit amet</a></h5>
-                                        <span class="product-category"><a href="#">Computers &amp; Tablets</a></span>
-										<div class="rating readonly-rating" data-score="4"></div>
-                                    </td>
-                                    <td class="wishlist-price">
-                                    	<span class="price">$281.00</span>
-                                    </td>
-                                    <td class="wishlist-actions">
-                                    
-										<div class="numeric-input">
-											<input type="text" value="1">
-											<span class="arrow-up"><i class="icons icon-up-dir"></i></span>
-											<span class="arrow-down"><i class="icons icon-down-dir"></i></span>
-										</div>
-                                        <a href="#">
-                                            <span class="add-to-cart">
-                                                <span class="action-wrapper">
-                                                    <i class="icons icon-basket-2"></i>
-                                                    <span class="action-name">Add to cart</span>
-                                                </span>
-                                            </span>
-                                        </a>
-                                        <a href="#">
-                                            <span class="add-to-trash">
-                                                <span class="action-wrapper">
-                                                    <i class="icons icon-trash-8"></i>
-                                                    <span class="action-name">Remove</span>
-                                                </span>
-                                            </span>
-                                        </a>
-                                        
-                                    </td>
-                                </tr>
-                                
+                    <?php if(isset($this->data['searchcontent']))echo $this->data['searchcontent']; ?>            
                             </table>
                             
                         </div>
                         
                     </div>
                     
-                    <div class="row">
-                    
-                        <div class="col-lg-6 col-md-6 col-sm-6">
-                            <div class="category-results">
-                                <p>Results 1-6 of 6</p>
-                                <p>Show 
-                                <select class="chosen-select">
-                                    <option>1</option>
-                                    <option>2</option>
-                                    <option>6</option>
-                                    <option>P10</option> 
-                                </select>
-                                per page
-                                </p>
-                            </div>
-                        </div>
-                        
-                        <div class="col-lg-6 col-md-6 col-sm-6">
-                            <div class="pagination">
-                                <a href="#"><div class="previous"><i class="icons icon-left-dir"></i></div></a>
-                                <a href="#"><div class="page-button">1</div></a>
-                                <a href="#"><div class="page-button">2</div></a>
-                                <a href="#"><div class="page-button">3</div></a>
-                                <a href="#"><div class="next"><i class="icons icon-right-dir"></i></div></a>
-                            </div>
-                        </div>
-                    
-                    </div>
                     
 				</section>
 				<!-- /Main Content -->
@@ -317,35 +89,7 @@
 							
 							<div class="sidebar-box-content">
 								<ul>
-									<li><a href="#">Cameras &amp; Photography <i class="icons icon-right-dir"></i></a></li>
-									<li><a href="#">Computers &amp; Tablets <i class="icons icon-right-dir"></i></a></li>
-									<li><a href="#">Cell Phones &amp; Accessories <i class="icons icon-right-dir"></i></a>
-                                    	<ul class="sidebar-dropdown">
-                                        	<li>
-                                            	<ul>
-                                                	<li><a href="#">Cell phones &amp; Smartphone</a></li>
-                                                    <li><a href="#">Cell Phone Accessories</a></li>
-                                                    <li><a href="#">Headsets</a></li>
-                                                    <li><a href="#">Cases, Covers & Skins</a></li>
-                                                    <li><a href="#">Screen Protectors</a></li>
-                                                </ul>
-                                            </li>
-                                            <li>
-                                            	<ul>
-                                                	<li><a href="#">Chargers & Cradles</a></li>
-                                                    <li><a href="#">Batteries</a></li>
-                                                    <li><a href="#">Cables & Adapters</a></li>
-                                                    <li><a href="#">All About Smartphones</a></li>
-                                                </ul>
-                                            </li>
-                                        </ul>
-                                    </li>
-									<li><a href="#">TV, Audio &amp; Surveillance <i class="icons icon-right-dir"></i></a></li>
-									<li><a href="#">Video Games &amp; Consoles <i class="icons icon-right-dir"></i></a></li>
-									<li><a href="#">Car Audio, Video &amp; GPS <i class="icons icon-right-dir"></i></a></li>
-									<li><a href="#">Best Sellers <i class="icons icon-right-dir"></i></a></li>
-									<li><a href="#">Shop by Brands <i class="icons icon-right-dir"></i></a></li>
-									<li><a class="purple" href="#">All Categories</a></li>
+								<?php echo $this->data['categoryleft'] ?>
 								</ul>
 							</div>
 							
@@ -355,53 +99,12 @@
 					<!-- /Categories -->
 					
 					
-					<!-- Compare Products -->
-					<div class="row sidebar-box blue">
-						
-						<div class="col-lg-12 col-md-12 col-sm-12">
-							
-							<div class="sidebar-box-heading">
-                            	<i class="icons icon-docs"></i>
-								<h4>Compare Products</h4>
-							</div>
-							
-							<div class="sidebar-box-content sidebar-padding-box">
-								<p>You have no products to compare.</p>
-							</div>
-							
-						</div>
-						
-					</div>
-					<!-- /Compare Products -->
+					
 					
 					
 					<!-- Carousel -->
 					<div class="row sidebar-box">
 						
-						<div class="col-lg-12 col-md-12 col-sm-12 sidebar-carousel">
-							
-							<!-- Slider -->
-							<section class="sidebar-slider">
-								<div class="sidebar-flexslider">
-									<ul class="slides">
-										<li>
-											<a href="#"><img src="img/sidebar-slide1.jpg" alt="Slide1"/></a>
-										</li>
-										<li>
-											<a href="#"><img src="img/sidebar-slide2.jpg" alt="Slide1"/></a>
-										</li>
-										<li>
-											<a href="#"><img src="img/sidebar-slide3.jpg" alt="Slide1"/></a>
-										</li>
-									</ul>
-								</div>
-								<div class="slider-nav"></div>
-							</section>
-							<!-- /Slider -->
-                            
-						</div>
-						
-					</div>
 					<!-- /Carousel -->
 					
 					
@@ -417,32 +120,7 @@
 
 			
 			<!-- Banner -->
-			<section class="banner">
-				
-				<div class="left-side-banner banner-item icon-on-right gray">
-					<h4>8(802)234-5678</h4>
-					<p>Monday - Saturday: 8am - 5pm PST</p>
-					<i class="icons icon-phone-outline"></i>
-				</div>
-				
-				<a href="#">
-				<div class="middle-banner banner-item icon-on-left light-blue">
-					<h4>Free shipping</h4>
-					<p>on all orders over $99</p>
-                    <span class="button">Learn more</span>
-					<i class="icons icon-truck-1"></i>
-				</div>
-				</a>
-				
-				<a href="#">
-				<div class="right-side-banner banner-item orange">
-					<h4>Crazy sale!</h4>
-					<p>on selected items</p>
-                    <span class="button">Shop now</span>
-				</div>
-				</a>
-				
-			</section>
+			
 			<!-- /Banner -->
 
 			
