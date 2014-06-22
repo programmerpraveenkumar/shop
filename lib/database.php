@@ -132,7 +132,9 @@ protected $mysql;
 		</html>";
                  $result = @mail($mailid,"Enqiry from Client",$message,$headers);
     }
-                
+    public function DB_getscandir($dir){
+                        return array_values(array_diff(scandir($dir),array('.','..')));
+    }    
     }
 ?>
 

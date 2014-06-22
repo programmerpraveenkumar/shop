@@ -16,7 +16,7 @@
             <link rel="stylesheet" href="<?php echo INCLUDE_FILE ?>css/bootstrap.min.css">
             <link rel="stylesheet" href="<?php echo INCLUDE_FILE ?>css/perfect-scrollbar.css">
             <link rel="stylesheet" href="<?php echo INCLUDE_FILE ?>css/style.css">
-            <link rel="stylesheet" href="<?php echo INCLUDE_FILE ?>css/flexslider.css" type="text/css" media="screen" />
+            <link rel="stylesheet" href="<?php echo INCLUDE_FILE ?>css/flexslider.css"  />
             <link rel="stylesheet" href="<?php echo INCLUDE_FILE ?>css/fontello.css">
             <link rel="stylesheet" href="<?php echo INCLUDE_FILE ?>css/animation.css">
             <link rel="stylesheet" href="<?php echo INCLUDE_FILE ?>css/owl.carousel.css">
@@ -31,9 +31,9 @@
 			<link rel="stylesheet" href="css/fontello-ie7.css">
 		<![endif]-->
                 <script type="text/javascript" src="<?php echo INCLUDE_FILE ?>js/jquery-1.7.1.min.js"></script>
-                <script type="text/javascript" src="<?php echo INCLUDE_FILE ?>js/tms-0.4.1.js"></script>                
+                              
                 <script type="text/javascript" src="<?php echo INCLUDE_FILE ?>js/neha.js" ></script>
-                <script type="text/javascript" src="<?php echo INCLUDE_FILE ?>js/slider.js"></script>                
+                               
                 <script type="text/javascript">
                 USER_PATH='<?php echo PAGE_PATH; ?>';    
                 ADMINPATH='<?php echo ADMIN; ?>';    

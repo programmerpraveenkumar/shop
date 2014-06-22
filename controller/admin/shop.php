@@ -9,7 +9,7 @@ class shop extends controller{
                 $this->initial();
             }
     }
-    private function initial(){
+    private function initial(){        
         $this->view->data=$this->model->call('shop','addform');
         $this->view->render('admin/index');
     }
@@ -25,6 +25,10 @@ class shop extends controller{
     }
     private function sliderimagestore(){
         $this->model->call('shop','sliderimagestore');
+    }
+    private function edit(){
+        ///$this->view->data=$this->model->call('shop','geteditshoplist');
+        $this->view->render('admin/index');        
     }
 }
 

@@ -1,9 +1,9 @@
 <?php include 'include/page/header.php'; ?>    
 
-<link rel="stylesheet" href="http://localhost//slider/demo/css/flexslider.css" type="text/css" media="screen" />
+<link rel="stylesheet" href="<?php echo INCLUDE_FILE ?>/css/flexslider.css" type="text/css" media="screen" />
 
 	<!-- Modernizr -->
-  <script src="http://localhost//slider/demo/js/modernizr.js"></script>
+  <script src="<?php echo INCLUDE_FILE ?>/js/modernizr.js"></script>
 
 
 			<!-- Content -->
@@ -11,14 +11,9 @@
                 <!-- Slider -->
                 <section class="slider col-lg-12 col-md-12 col-sm-12">
                     <div class="flexslider flexsliderBig">
-                        <div class="flexslider">
+                        <div class="_flexslider">
           <ul class="slides">
-            <li>
-  	    	    <img src="<?php echo INCLUDE_FILE ?>img/slide1.jpg" alt="" />
-  	    		</li>
-  	    		<li>
-  	    	    <img src="<?php echo INCLUDE_FILE ?>img/slide2.jpg" alt="" />
-  	    		</li>  	    		
+                                <?php echo $this->data["topslider"] ?>
           </ul>
         </div>
 <!--                        <div class="mp-slider">
@@ -224,18 +219,16 @@
             
 		</div>
     	<!-- Container --><!-- jQuery -->
-  <script src="http://ajax.googleapis.com/ajax/libs/jquery/1/jquery.min.js"></script>
+  <script src="<?php echo INCLUDE_FILE ?>js/jquery.min.js"></script>
 
 
   <!-- FlexSlider -->
-  <script defer src="http://localhost//slider/demo/js/jquery.flexslider.js"></script>
+  <script defer src="<?php echo INCLUDE_FILE ?>js/jquery.flexslider.js"></script>
 		
 		<script type="text/javascript">
-//    $(function(){
-//      SyntaxHighlighter.all();
-//    });
+
     $(window).load(function(){
-      $('.flexslider').flexslider({
+      $('._flexslider').flexslider({
         animation: "slide",
         start: function(slider){
           $('body').removeClass('loading');

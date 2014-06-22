@@ -27,7 +27,10 @@ class shopModel extends database{
                 $this->_tmp='<textarea class="textarea"  name="'.$details["name"].'"></textarea>';
             break;
             case 'file':
-                $this->_tmp='<input class="textbox" type="file" name="'.$details["name"].'" />';
+                $this->_tmp='<input class="textbox" '.$details["attributes"].' type="file" name="'.$details["name"].'" />';
+            break;
+         case 'custom':
+                $this->_tmp=$details["values"];
             break;
         }
         return '<div class="separator"><label class="label">'.$details["label"].'</label>'.$this->_tmp.'<span id="error_'.$details["name"].'"></span></div>';
@@ -44,11 +47,12 @@ class shopModel extends database{
         $field.=$this->_formfield(array("name"=>"country","label"=>"Country","type"=>"textbox"));
         $field.=$this->_formfield(array("name"=>"mobile","label"=>"Mobile","type"=>"textbox"));
         $field.=$this->_formfield(array("name"=>"phone","label"=>"Phone","type"=>"textbox"));
-        $field.=$this->_formfield(array("name"=>"description","label"=>"Description","type"=>"textarea"));
+        $field.=$this->_formfield(array("name"=>"video","label"=>"Video Url","type"=>"textbox"));
+        $field.=$this->_formfield(array("name"=>"description","label"=>"Description","type"=>"textarea"));        
         $field.=$this->_formfield(array("name"=>"mainimage","label"=>"Main Product Image","type"=>"file"));
-        $field.=$this->_formfield(array("name"=>"submitt","label"=>"","type"=>"button","value"=>"Store","onclick"=>'ajaxvalidation({\'type\':\'submit\',\'name\':\'shopaddform\'},{\'1d\':[\'product_name\',\'empty\'],\'2d\':[\'category\',\'empty\'],\'3d\':[\'sub_category\',\'empty\'],\'4d\':[\'shop_name\',\'empty\'],\'5d\':[\'street\',\'empty\'],\'6d\':[\'city\',\'empty\'],\'7d\':[\'district\',\'empty\'],\'8d\':[\'state\',\'empty\'],\'9d\':[\'country\',\'empty\'],\'mod\':[\'mobile\',\'number\'],\'10d\':[\'phone\',\'empty\'],\'11d\':[\'description\',\'empty\'],\'12d\':[\'mainimage\',\'file\'],\'tyd\':[\'ajax\',\'ajax\']})'));
-        $data='<form action="'.ADMIN.'shop/productstore" method="post" enctype="multipart/form-data" class="form" name="shopaddform">'.$field.'</form>';
-       
+        $field.=$this->_formfield(array("name"=>"photos[]","label"=>"Product Photos","type"=>"file","attributes"=>"multiple=\"multiple\""));
+        $field.=$this->_formfield(array("name"=>"submitt","label"=>"","type"=>"button","value"=>"Store","onclick"=>'ajaxvalidation({\'type\':\'submit\',\'name\':\'shopaddform\'},{\'1d\':[\'product_name\',\'empty\'],\'2d\':[\'category\',\'empty\'],\'3d\':[\'sub_category\',\'empty\'],\'4d\':[\'shop_name\',\'empty\'],\'5d\':[\'street\',\'empty\'],\'6d\':[\'city\',\'empty\'],\'7d\':[\'district\',\'empty\'],\'8d\':[\'state\',\'empty\'],\'9d\':[\'country\',\'empty\'],\'mod\':[\'mobile\',\'number\'],\'10d\':[\'phone\',\'empty\'],\'11v\':[\'video\',\'empty\'],\'11d\':[\'description\',\'empty\'],\'12d\':[\'mainimage\',\'file\'],\'tyd\':[\'ajax\',\'ajax\']})'));
+        $data='<form action="'.ADMIN.'shop/productstore" method="post" enctype="multipart/form-data" class="form" name="shopaddform">'.$field.'</form>';       
         return array("title"=>"Product Add Form","data"=>$data);
     }
     private function _maincategory(){
@@ -56,17 +60,26 @@ class shopModel extends database{
     }
     public function shopstore(){
                 $data=$this->DB_refreshdata($_POST); 
-                $res=$this->onefetchstoredProcedure("sp_product('add','(shopname,productname,category,sub_category,street,city,district,state,country,mobile,phone,description)values(\'$data[shop_name]\',\'$data[product_name]\',\'$data[category]\',\'$data[sub_category]\',\'$data[street]\',\'$data[city]\',\'$data[district]\',\'$data[state]\',\'$data[country]\',\'$data[mobile]\',\'$data[phone]\',\'$data[description]\')')");               
-                if($res->result=='ok') {
+                $res=$this->onefetchstoredProcedure("sp_product('add','(shopname,productname,category,sub_category,street,city,district,state,country,mobile,phone,description,video)values(\'$data[shop_name]\',\'$data[product_name]\',\'$data[category]\',\'$data[sub_category]\',\'$data[street]\',\'$data[city]\',\'$data[district]\',\'$data[state]\',\'$data[country]\',\'$data[mobile]\',\'$data[phone]\',\'$data[description]\',\'$data[video]\')')");               
+                if($res->result=='ok'){
                    $this->_path.='product/'.$res->id.'/';                   
                    mkdir($this->_path);
                    move_uploaded_file($_FILES['mainimage']['tmp_name'], $this->_path.'main.jpg');
+                   $this->_productImage($this->_path);
                    $this->DB_adminredirect('shop?msg=add_ok');
                }
                else{
                    $this->DB_adminredirect('shop?msg=add_er');
                }
 
+    }
+    private function _productImage($path){        
+        $main=$path.'/product/';
+        mkdir($main);
+        $count_photo=$_FILES['photos']['name'];
+        for($i=0;$i<count($count_photo);$i++){
+            move_uploaded_file($_FILES['photos']['tmp_name'][$i],$main.uniqid().'.jpg');
+        }
     }
     public function sliderimageform(){
         $field=$this->_formfield(array("name"=>"image","label"=>"Select Image","type"=>"file"));
@@ -94,6 +107,11 @@ class shopModel extends database{
             
         }
     }
+    public function geteditshoplist(){
+        
+        
+    }
+    /*user side*/
 
     public function searchproduct(){
                 $recv=isset($_GET['category'])?$_GET['category']:'update';
@@ -118,8 +136,9 @@ class shopModel extends database{
                 }
                 return array("searchcontent"=>$this->_tmp,"categorytitle"=>"title f the category","categoryleft"=>$this->categorydriver()->leftMenu());
     }    
-    public function getproductalone(){        
-         $res=$this->onefetchstoredProcedure("sp_product('id_name_product','1')");         
+    public function getproductalone(){
+        $id=$_GET['id'];
+         $res=$this->onefetchstoredProcedure("sp_product('id_name_product','$id')");         
         return array("id"=>$res->id,"title"=>$res->productname,"description"=>$res->description,"categorylist"=>$this->categorydriver()->optionwithnames(),"categoryleft"=>$this->categorydriver()->leftMenu(),
                 "moreimage"=>$this->_getsliderMoreimage($res->id),
                 "address"=>"<tr><td>$res->street</td><tr><td>$res->city</td></tr><tr><td>$res->district-$res->pincode</td></tr><tr><td>$res->mobile</td></tr>"

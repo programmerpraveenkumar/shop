@@ -7,18 +7,23 @@ class userModel extends database{
     }
     public function index(){
         //<li><a href="#">Shop by Brands <i class="icons icon-right-dir"></i></a></li>
-        return array("categorylist"=>$this->categorydriver()->optionwithnames(),"categoryleft"=>$this->categorydriver()->leftMenu(),"product"=>$this->_getproductlist());
+        return array("categorylist"=>$this->categorydriver()->optionwithnames(),"categoryleft"=>$this->categorydriver()->leftMenu(),
+            "product"=>$this->_getproductlist(),
+            "topslider"=>$this->_slider(),
+                
+                );
     }
-    private function _categorytoselect(){
+    private function DEP___categorytoselect(){
         $this->categorydriver()->option();
     }
-//    private function _leftMenu(){
-//        $data=$this->categorydriver()->get();
-//        while($res=$data->fetch_object()){
-//            $this->_tmp.='<li><a href="#">'.$res->name.'<i class="icons icon-right-dir"></i></a></li>';
-//        }
-//        return $this->_tmp;
-//    }
+    private function _slider(){
+        $this->_tmp='';
+        $data=$this->DB_getscandir('photo/slider');        
+                for($i=0;$i<count($data);$i++){
+                    $this->_tmp.='<li><img src="'.PHOTO_PATH.'slider/'.$data[$i].' "/></li>';
+                }
+            return $this->_tmp;
+    }
     private function _getproductlist(){
     $load=array();
                 $res=$this->storedProcedure("sp_product('by_rank','')");

@@ -1,3 +1,14 @@
+/*
+https://www.youtube.com/watch?v=RRdXcyYpTXg&list=TL7QVA3FaoUpkX7kppQFfrr85B80sKBTyq
+
+https://www.youtube.com/watch?v=jbOQHz4sIdg&list=TL7QVA3FaoUpkX7kppQFfrr85B80sKBTyq&index=12
+
+https://www.youtube.com/watch?v=xI5DajTCqrc
+
+https://www.youtube.com/watch?v=WUz9mYjITVI
+
+
+*/
 13-6--------------------
 product_name
 category
@@ -18,7 +29,10 @@ searchindex rank..
 add slider images admin panel in menu
 check add shop form in admin panel
 22-6-14---------------
-slider teting..
+slider testing..--done
+index page advertisements--done
 shop activation and delete in 
-index pagae advertisements
-ranking products
+ranking products-waiting..
+shop photos and delete 
+videos,map show in user side.
+review-->add in user side.waiting for the admin accept..

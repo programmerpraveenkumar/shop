@@ -22,7 +22,7 @@ class categoryDRIVER extends \database{
     public function leftMenu(){
         $data=$this->get();
         while($res=$data->fetch_object()){
-            $this->_tmp.='<li><a href="#">'.$res->name.'<i class="icons icon-right-dir"></i></a></li>';
+            $this->_tmp.='<li><a href="'.PAGE_PATH.'search/?category='.$res->name.'">'.$res->name.'<i class="icons icon-right-dir"></i></a></li>';
         }
         return $this->_tmp;
     }
