@@ -1,20 +1,35 @@
 <?php include 'include/page/header.php'; ?>    
 
+<link rel="stylesheet" href="http://localhost//slider/demo/css/flexslider.css" type="text/css" media="screen" />
+
+	<!-- Modernizr -->
+  <script src="http://localhost//slider/demo/js/modernizr.js"></script>
+
 
 			<!-- Content -->
 			<div class="row content">               
                 <!-- Slider -->
                 <section class="slider col-lg-12 col-md-12 col-sm-12">
                     <div class="flexslider flexsliderBig">
-                        <div class="mp-slider">
+                        <div class="flexslider">
+          <ul class="slides">
+            <li>
+  	    	    <img src="<?php echo INCLUDE_FILE ?>img/slide1.jpg" alt="" />
+  	    		</li>
+  	    		<li>
+  	    	    <img src="<?php echo INCLUDE_FILE ?>img/slide2.jpg" alt="" />
+  	    		</li>  	    		
+          </ul>
+        </div>
+<!--                        <div class="mp-slider">
                                 <ul class="items">
                                     <li><img src="<?php echo INCLUDE_FILE ?>img/slide1.jpg" alt="" /></li>                                    
-<!--                                    <li><img src="<?php echo INCLUDE_FILE ?>img/slide2.jpg" alt="" /></li>
-                                    <li><img src="<?php echo INCLUDE_FILE ?>img/slide3.jpg" alt="" /></li>-->
+                                    <li><img src="<?php echo INCLUDE_FILE ?>img/slide2.jpg" alt="" /></li>
+                                    <li><img src="<?php echo INCLUDE_FILE ?>img/slide3.jpg" alt="" /></li>
                                 </ul>                         
                                 <a href="#" class="mp-prev"></a>
                                 <a href="#" class="mp-next"></a>
-                        </div>
+                        </div>-->
                     </div>
                 </section>
                 <!-- /Slider -->
@@ -43,16 +58,10 @@
 						
 						<!-- Carousel -->
 						
-							
-                                                    <div class="owl-carousel" data-max-items="3">
-                                                                    <?php  if(isset($this->data['product']['0']))echo $this->data['product']['0'];?>
-                                                    </div>
-                                                    <div class="owl-carousel" data-max-items="3">
-                                                                <?php  if(isset($this->data['product']['1']))echo $this->data['product']['1'];?>								
-							</div>
-                                                <div class="owl-carousel" data-max-items="3">									
-                                                                <?php  if(isset($this->data['product']['2']))echo $this->data['product']['2'];?>								
-				                </div>
+							<?php echo $this->data['product'];  ?>
+                                                    
+                                               
+                                                   
 						
 						<!-- /Carousel -->
 						
@@ -214,8 +223,25 @@
             </div>
             
 		</div>
-    	<!-- Container -->
+    	<!-- Container --><!-- jQuery -->
+  <script src="http://ajax.googleapis.com/ajax/libs/jquery/1/jquery.min.js"></script>
+
+
+  <!-- FlexSlider -->
+  <script defer src="http://localhost//slider/demo/js/jquery.flexslider.js"></script>
 		
-		
+		<script type="text/javascript">
+//    $(function(){
+//      SyntaxHighlighter.all();
+//    });
+    $(window).load(function(){
+      $('.flexslider').flexslider({
+        animation: "slide",
+        start: function(slider){
+          $('body').removeClass('loading');
+        }
+      });
+    });
+  </script>
 		
 	<?php include 'include/page/footer.php'; ?>

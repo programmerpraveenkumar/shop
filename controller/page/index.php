@@ -10,8 +10,12 @@ class index extends controller{
         } 
 }
     private function initial(){
+        
         $this->view->data=$this->model->call('user','index');
-            $this->view->render('page/index');
+//        echo '<pre>';
+//        print_R($this->view->data['product']);
+        //die();
+        $this->view->render('page/index');
     }
     private function listt(){
         $this->view->render('page/index');

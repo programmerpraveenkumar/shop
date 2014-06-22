@@ -28,7 +28,7 @@ class userModel extends database{
                             <div class="product">
 											
                         <div class="product-image">
-                                <img src="'.PATH.'photo/photo/getindexImagefromsearch?id='.$data->id.'" alt="Product1">
+                               <img src="'.PATH.'photo/photo/getindexImagefromsearch?id='.$data->id.'" alt="Product1"> 
                                 <a href="'.$productalone.'">
                                         
                                 </a>
@@ -44,23 +44,14 @@ class userModel extends database{
                 <!-- /Carousel Item -->
         </div>';
     }
-//    $max=9;
-//    if(count($load)<$max){
-//        $max=count($load);
-//    }
-//    $another=array();
-//    $j=0;
-//    for($i=0;$i<$max;$i++){
-//        if($i%3==0 && $i!=0){
-//            $j++;
-//           
-//        }
-//         $another[$j].=$load[$i];   
-//    }
-  
-    //echo count($another);
-    //die();
-   return array_chunk($load,'3');     
+      
+    return $this->_productfucntion(array_chunk($load,'3'));;     
+    }
+    private function _productfucntion($data){
+        foreach($data as $val){
+                    $this->_tmp.='<div class="owl-carousel" data-max-items="3">'.$val[0].$val[1].$val[2].'</div>';
+        }
+        return $this->_tmp;
     }
 }
 ?>
