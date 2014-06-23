@@ -93,12 +93,14 @@ CREATE TABLE `product` (
   `index_ad` int(11) DEFAULT NULL,
   `rank` int(11) DEFAULT NULL,
   `pincode` varchar(45) DEFAULT NULL,
+  `video` text,
+  `map` text,
   PRIMARY KEY (`id`),
   KEY `categoryid_idx` (`category`),
   KEY `sub_category_id_idx` (`sub_category`),
   CONSTRAINT `categoryid` FOREIGN KEY (`category`) REFERENCES `category` (`id`) ON DELETE SET NULL ON UPDATE NO ACTION,
   CONSTRAINT `sub_category_id` FOREIGN KEY (`sub_category`) REFERENCES `category` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION
-) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=latin1 COMMENT='	';
+) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=latin1 COMMENT='	';
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -107,7 +109,7 @@ CREATE TABLE `product` (
 
 LOCK TABLES `product` WRITE;
 /*!40000 ALTER TABLE `product` DISABLE KEYS */;
-INSERT INTO `product` VALUES (1,'sivasakthi illam',1,'product nam',7,'r.s.road','vadamadurai','dindigulk','fghfd','ghfdhfg','8870079862','0455123854','sad document tetsisn this sammmple ',NULL,NULL,'45465'),(2,'sivasakthi illam',1,'product nam',7,'r.s.road','vadamadurai','dindigulk','fghfd','ghfdhfg','8870079862','0455123854','sad',NULL,NULL,NULL),(3,'sivasakthi',1,'product nam',8,'r.s.road','vadamadurai','dindigul','tamilnadu','india','8870079862','0455123854','sample',NULL,NULL,NULL),(4,'sivasakthi',1,'product nam',8,'r.s.road','vadamadurai','dindigul','tamilnadu','india','8870079862','0455123854','sample',NULL,NULL,NULL),(5,'sivasakthi',1,'product nam',8,'r.s.road','vadamadurai','dindigul','tamilnadu','india','8870079862','0455123854','sample',NULL,NULL,NULL),(6,'sivasakthi',1,'product nam',8,'r.s.road','vadamadurai','dindigul','tamilnadu','india','8870079862','0455123854','sample',NULL,NULL,NULL),(7,'sivasakthi',2,'test namef',8,'r.s.road','vadamadurai','dindigul','tamilnadu','india','8870079862','0455123854','sample',NULL,NULL,NULL);
+INSERT INTO `product` VALUES (1,'sivasakthi illam',1,'product nam',7,'r.s.road','vadamadurai','dindigulk','fghfd','ghfdhfg','8870079862','0455123854','sad document tetsisn this sammmple ',NULL,NULL,'45465',NULL,NULL),(2,'sivasakthi illam',1,'product nam',7,'r.s.road','vadamadurai','dindigulk','fghfd','ghfdhfg','8870079862','0455123854','sad',NULL,NULL,NULL,NULL,NULL),(3,'sivasakthi',1,'product nam',8,'r.s.road','vadamadurai','dindigul','tamilnadu','india','8870079862','0455123854','sample',NULL,NULL,NULL,NULL,NULL),(4,'sivasakthi',1,'product nam',8,'r.s.road','vadamadurai','dindigul','tamilnadu','india','8870079862','0455123854','sample',NULL,NULL,NULL,NULL,NULL),(5,'sivasakthi',1,'product nam',8,'r.s.road','vadamadurai','dindigul','tamilnadu','india','8870079862','0455123854','sample',NULL,NULL,NULL,NULL,NULL),(6,'sivasakthi',1,'product nam',8,'r.s.road','vadamadurai','dindigul','tamilnadu','india','8870079862','0455123854','sample',NULL,NULL,NULL,NULL,NULL),(7,'sivasakthi',2,'test namef',8,'r.s.road','vadamadurai','dindigul','tamilnadu','india','8870079862','0455123854','sample',NULL,NULL,NULL,NULL,NULL),(8,'praveen shop',1,'image teting',7,'praveen street','praveen city','praveen districy','praveen state','pravaeen country','7200793725','praveen phonw','praveen description',NULL,NULL,NULL,NULL,NULL),(9,'krishna shop',1,'krishna product',7,'krishna street','krishna city','krishna district','krishna state','krishna country','8870079862','krishna phone','krishna description',NULL,NULL,NULL,'krishna video',NULL);
 /*!40000 ALTER TABLE `product` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -200,6 +202,8 @@ elseif command='id_name_product' then
 select * from product where id=commandtext;
 elseif command='by_rank' then
 select * from product order by rank limit 0,9;
+elseif command='select_all' then
+select id,shopname,productname from product ;
 end if;
 END ;;
 DELIMITER ;
@@ -217,4 +221,4 @@ DELIMITER ;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2014-06-17 17:23:49
+-- Dump completed on 2014-06-23  6:12:26

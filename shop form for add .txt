@@ -26,7 +26,7 @@ indexpagead
 searchindex rank..
 --------------------
 14-6--------------------
-add slider images admin panel in menu
+add slider images admin panel in menu--done
 check add shop form in admin panel
 22-6-14---------------
 slider testing..--done

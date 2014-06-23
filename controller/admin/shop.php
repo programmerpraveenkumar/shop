@@ -27,7 +27,7 @@ class shop extends controller{
         $this->model->call('shop','sliderimagestore');
     }
     private function edit(){
-        ///$this->view->data=$this->model->call('shop','geteditshoplist');
+        $this->view->data=$this->model->call('shop','geteditshoplist');
         $this->view->render('admin/index');        
     }
 }

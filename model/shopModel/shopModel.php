@@ -84,13 +84,14 @@ class shopModel extends database{
     public function sliderimageform(){
         $field=$this->_formfield(array("name"=>"image","label"=>"Select Image","type"=>"file"));
         $field.=$this->_formfield(array("name"=>"submitt","label"=>"","type"=>"button","value"=>"Store","onclick"=>'ajaxvalidation({\'type\':\'submit\',\'name\':\'slider\'},{\'1d\':[\'image\',\'file\'],\'tyd\':[\'ajax\',\'ajax\']})'));
-        $data='<form name="slider" action="'.ADMIN.'shop/sliderimagestore" method="post" enctype="multipart/form-data">'.$field.'</form>';
+        $data='<form name="slider" class="form" action="'.ADMIN.'shop/sliderimagestore" method="post" enctype="multipart/form-data">'.$field.'</form>';
         return array("title"=>"Product Add Form","data"=>$data);
     }
     public function sliderimagestore(){
         if(isset($_FILES['image']['name'])){
             $name=uniqid();
             if(!move_uploaded_file($_FILES['image']['tmp_name'],'photo/slider/'.$name.'.jpg')){
+                $this->DB_adminredirect('shop/sliderimage?msg=up_err'); 
                 error::developererror('upload files error');
             }
             $this->DB_adminredirect('shop/sliderimage?msg=up_ok');            
@@ -108,8 +109,12 @@ class shopModel extends database{
         }
     }
     public function geteditshoplist(){
-        
-        
+        $this->_tmp='<div><span>Image</span><span>Shop Name</span><span>Product Name</span></div>';
+        $res=$this->storedProcedure("sp_product('select_all','')");
+        while($data=$res->fetch_object()){
+            $this->_tmp.='<div><span>'.$data->id.'</span><span>'.$data->shopname.'</span><span>'.$data->productname.'</span></div>';
+         }
+         return array("title"=>"Product Add Form","data"=>$this->_tmp);
     }
     /*user side*/
 

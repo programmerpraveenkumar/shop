@@ -126,7 +126,7 @@
                         <li>
 	    			<a href="javascript:void(0);"><img src="<?php echo ADMININCLUDE ?>img/icons/packs/fugue/16x16/clipboard-list.png">Home page advertisements</a>
 	    			<ul class="sub">
-                                    <li><a href="<?php echo ADMIN ?>shop/indexproduct">Product Add</a></li>	
+<!--                                    <li><a href="<?php echo ADMIN ?>shop/indexproduct">Product Add</a></li>	-->
                                     <li><a href="<?php echo ADMIN ?>shop/sliderimage">Slider Image</a></li>	    		            
 	    			</ul>
 	    		</li>
