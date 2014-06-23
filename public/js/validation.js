@@ -182,7 +182,7 @@ function ajax_call(funName,type,data){
 function load(wch){
     data={"reg_ok":"registered successfully","no":'UserName or Password is wrong',
     "add_ok":"Added Successfully","sub_exist":"ERROR::Delete the subcategory for this selected category(You can't delete)",
-    "delete":"Successfully Deleted",
+    "delete":"Successfully Deleted","del_ok":"Successfully Deleted",
     "update":"updated successfully"
     
     };
@@ -198,3 +198,12 @@ function load(wch){
 //    return '';
 //    return data[wch];
 }
+var admin_functions={    
+    delete:function(path){
+        if(confirm('Are You confirm to delete')){
+            window.location.assign(ADMINPATH+path);
+        }
+    }
+    
+    
+};

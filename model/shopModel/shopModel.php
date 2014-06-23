@@ -29,13 +29,22 @@ class shopModel extends database{
             case 'file':
                 $this->_tmp='<input class="textbox" '.$details["attributes"].' type="file" name="'.$details["name"].'" />';
             break;
-         case 'custom':
-                $this->_tmp=$details["values"];
+            case 'custom':
+             return $details["values"];            
             break;
         }
         return '<div class="separator"><label class="label">'.$details["label"].'</label>'.$this->_tmp.'<span id="error_'.$details["name"].'"></span></div>';
     }
     public function addform(){
+       
+        $field.=$this->_productgeneralform().$this->_formfield(array("name"=>"mainimage","label"=>"Main Product Image","type"=>"file"));
+        $field.=$this->_formfield(array("name"=>"photos[]","label"=>"Product Photos","type"=>"file","attributes"=>"multiple=\"multiple\""));
+        $field.=$this->_formfield(array("name"=>"submitt","label"=>"","type"=>"button","value"=>"Store","onclick"=>'ajaxvalidation({\'type\':\'submit\',\'name\':\'shopaddform\'},{\'1d\':[\'product_name\',\'empty\'],\'2d\':[\'category\',\'empty\'],\'3d\':[\'sub_category\',\'empty\'],\'4d\':[\'shop_name\',\'empty\'],\'5d\':[\'street\',\'empty\'],\'6d\':[\'city\',\'empty\'],\'7d\':[\'district\',\'empty\'],\'8d\':[\'state\',\'empty\'],\'9d\':[\'country\',\'empty\'],\'mod\':[\'mobile\',\'number\'],\'10d\':[\'phone\',\'empty\'],\'11v\':[\'video\',\'empty\'],\'11d\':[\'description\',\'empty\'],\'12d\':[\'mainimage\',\'file\'],\'tyd\':[\'ajax\',\'ajax\']})'));
+        $data='<form action="'.ADMIN.'shop/productstore" method="post" enctype="multipart/form-data" class="form" name="shopaddform">'.$field.'</form>';       
+        return array("title"=>"Product Add Form","data"=>$data);
+    }
+
+    private function _productgeneralform(){
         $field=$this->_formfield(array("name"=>"product_name","label"=>"Product Name","type"=>"textbox"));
         $field.=$this->_formfield(array("name"=>"category","label"=>"Product Category","type"=>"select","value"=>$this->_maincategory(),"attributes"=>"onchange=\"ajax_call('subcategory','inner',{'id':'sub_cat_id','value':this.value})\""));
         $field.=$this->_formfield(array("name"=>"sub_category","label"=>"Select Sub Category","type"=>"select","attributes"=>"id=\"sub_cat_id\""));
@@ -48,12 +57,8 @@ class shopModel extends database{
         $field.=$this->_formfield(array("name"=>"mobile","label"=>"Mobile","type"=>"textbox"));
         $field.=$this->_formfield(array("name"=>"phone","label"=>"Phone","type"=>"textbox"));
         $field.=$this->_formfield(array("name"=>"video","label"=>"Video Url","type"=>"textbox"));
-        $field.=$this->_formfield(array("name"=>"description","label"=>"Description","type"=>"textarea"));        
-        $field.=$this->_formfield(array("name"=>"mainimage","label"=>"Main Product Image","type"=>"file"));
-        $field.=$this->_formfield(array("name"=>"photos[]","label"=>"Product Photos","type"=>"file","attributes"=>"multiple=\"multiple\""));
-        $field.=$this->_formfield(array("name"=>"submitt","label"=>"","type"=>"button","value"=>"Store","onclick"=>'ajaxvalidation({\'type\':\'submit\',\'name\':\'shopaddform\'},{\'1d\':[\'product_name\',\'empty\'],\'2d\':[\'category\',\'empty\'],\'3d\':[\'sub_category\',\'empty\'],\'4d\':[\'shop_name\',\'empty\'],\'5d\':[\'street\',\'empty\'],\'6d\':[\'city\',\'empty\'],\'7d\':[\'district\',\'empty\'],\'8d\':[\'state\',\'empty\'],\'9d\':[\'country\',\'empty\'],\'mod\':[\'mobile\',\'number\'],\'10d\':[\'phone\',\'empty\'],\'11v\':[\'video\',\'empty\'],\'11d\':[\'description\',\'empty\'],\'12d\':[\'mainimage\',\'file\'],\'tyd\':[\'ajax\',\'ajax\']})'));
-        $data='<form action="'.ADMIN.'shop/productstore" method="post" enctype="multipart/form-data" class="form" name="shopaddform">'.$field.'</form>';       
-        return array("title"=>"Product Add Form","data"=>$data);
+        $field.=$this->_formfield(array("name"=>"description","label"=>"Description","type"=>"textarea")); 
+        return $field;
     }
     private function _maincategory(){
         return $this->categoryDriver()->option();
@@ -82,10 +87,10 @@ class shopModel extends database{
         }
     }
     public function sliderimageform(){
-        $field=$this->_formfield(array("name"=>"image","label"=>"Select Image","type"=>"file"));
+        $field=$this->_formfield(array("name"=>"image","label"=>"Select Image","type"=>"file")).$this->_formfield(array("type"=>"custom","values"=>"<span style=\"color:red\">Image size has to 870(w)*400(h)</span>"));
         $field.=$this->_formfield(array("name"=>"submitt","label"=>"","type"=>"button","value"=>"Store","onclick"=>'ajaxvalidation({\'type\':\'submit\',\'name\':\'slider\'},{\'1d\':[\'image\',\'file\'],\'tyd\':[\'ajax\',\'ajax\']})'));
         $data='<form name="slider" class="form" action="'.ADMIN.'shop/sliderimagestore" method="post" enctype="multipart/form-data">'.$field.'</form>';
-        return array("title"=>"Product Add Form","data"=>$data);
+        return array("title"=>"Product Add Form","data"=>$data.$this->sliderimage());
     }
     public function sliderimagestore(){
         if(isset($_FILES['image']['name'])){
@@ -101,23 +106,46 @@ class shopModel extends database{
         }
     }
     public function sliderimage(){
+        $this->_tmp='';
         $path='photo/slider/';
-        $val=array_values(array_diff(scandir($path),array('.','..')));
-        die('shop-->sliderimage');
+        $this->_tmp='<div class="gridrow"><span class="gridcell">Image</span><span class="gridcell">Action</span></div>';
+        $val=$this->DB_getscandir($path);
         for($i=0;$i<count($val);$i++){
-            
+            $this->_tmp.='<div class="gridrow"><span class="gridcell image"><img class="gridimage" src="'.PHOTO_PATH.'slider/'.$val[$i].'"/></span><span class="gridcell"><input class="deletebtn" type="button" onclick="admin_functions.delete(\'shop/sliderimagedelete?id='.$val[$i].'\')" value="Delete" /></span></div>';
         }
+        return '<div class="grid">'.$this->_tmp.'</div>';
+    }
+    public function sliderimagedelete(){
+        $id=isset($_GET['id'])?$_GET['id']:'0';            
+        $this->_path.='slider/'.$id;
+        if(file_exists($this->_path)){
+            unlink($this->_path);
+            $this->DB_adminredirect('shop/sliderimage?msg=del_ok');
+        }
+        else{
+            echo $this->_path;die('file is not avlabl');
+            $this->DB_adminredirect('shop/sliderimage?msg=del_err');
+        }
+
     }
     public function geteditshoplist(){
-        $this->_tmp='<div><span>Image</span><span>Shop Name</span><span>Product Name</span></div>';
+        //die('get edit shop list');
+        $this->_tmp='<div class="gridrow"><span class="gridcell gridsmall">Image</span><span class="gridcell">Shop Name</span><span class="gridcell">Product Name</span><span class="gridcell">Action</span></div>';
         $res=$this->storedProcedure("sp_product('select_all','')");
         while($data=$res->fetch_object()){
-            $this->_tmp.='<div><span>'.$data->id.'</span><span>'.$data->shopname.'</span><span>'.$data->productname.'</span></div>';
+            $this->_tmp.='<div class="gridrow"><span class="gridcell gridsmall">'.$data->id.'</span><span class="gridcell">'.$data->shopname.'</span><span class="gridcell">'.$data->productname.'</span><span class="gridcell"><a href="'.ADMIN.'shop/editshop?id='.$data->id.'">Edit</a></span></div>';
          }
-         return array("title"=>"Product Add Form","data"=>$this->_tmp);
+         return array("title"=>"Select Shop For Edit","data"=>'<div class="grid">'.$this->_tmp.'</div>');
     }
+    
+    public function geteditshopForm(){
+        $data=$this->_productgeneralform();
+        $this->_tmp='<form name="" action="'.PATH.'shop/update" class="form" method="post">'.$data.'</form>';
+        return array("title"=>"Shop Edit Form","data"=>$this->_tmp);
+        //    return array_merge($this->addform(),array("title"=>"Shop Edit Form"));           
+    }
+    
     /*user side*/
-
     public function searchproduct(){
                 $recv=isset($_GET['category'])?$_GET['category']:'update';
                 $res=$this->storedProcedure("sp_product('product_search','$recv')");
@@ -146,30 +174,41 @@ class shopModel extends database{
          $res=$this->onefetchstoredProcedure("sp_product('id_name_product','$id')");         
         return array("id"=>$res->id,"title"=>$res->productname,"description"=>$res->description,"categorylist"=>$this->categorydriver()->optionwithnames(),"categoryleft"=>$this->categorydriver()->leftMenu(),
                 "moreimage"=>$this->_getsliderMoreimage($res->id),
-                "address"=>"<tr><td>$res->street</td><tr><td>$res->city</td></tr><tr><td>$res->district-$res->pincode</td></tr><tr><td>$res->mobile</td></tr>"
+                "address"=>"<tr><td>$res->street</td><tr><td>$res->city</td></tr><tr><td>$res->district-$res->pincode</td></tr><tr><td>$res->mobile</td></tr>",
+                "photos"=>$this->_getsliderMoreimage($res->id)
                 );      
     }   
     private function _getsliderMoreimage($id){
-    $path='photo/product/'.$id.'/';
+    $path='photo/product/'.$id.'/main.jpg';
             if(!file_exists($path)){                
                 return false;
             }
             else{
-                   $image=array_values(array_diff(scandir($path),array('.','..')));
-                       for($i=0;$i<count($image);$i++){
-                           if($image[$i]!='main.jpg'){                           
-                               $path='';
-                                   $this->_tmp.='<li>
-                    <a class="fancybox" rel="product-images" href="'.PHOTO_PATH.'product/".$id></a>												
-                    <img src="img/products/single1.jpg" data-large="img/products/single1.jpg" alt="" />
-                </li>';
-                       }
+                return '<li><a href="'.PHOTO_PATH.'product/getindexImagefromsearch?id='.$id.'"><img src="'.PHOTO_PATH.'product/getindexImagefromsearch?id='.$id.'" data-large="'.PHOTO_PATH.'product/getindexImagefromsearch?id='.$id.'" alt="" /></li></a>';
+//                   $image=array_values(array_diff(scandir($path),array('.','..')));
+//                       for($i=0;$i<count($image);$i++){
+//                           if($image[$i]!='main.jpg'){                           
+//                               $path='';
+//                                   $this->_tmp.='<li>
+//                    <a class="fancybox" rel="product-images" href="'.PHOTO_PATH.'product/".$id></a>												
+//                    <img src="img/products/single1.jpg" data-large="img/products/single1.jpg" alt="" />
+//                </li>';
+                     // }
         
                        
-            }
-            return $this->_tmp;      
+//          }
+            //return $this->_tmp;      
         }
      }
+     
+     private function _getphotos($id){
+         $path='photo/product/'.$id.'/product/';
+         if(!file_exists($path)){
+             return false;
+         }
+         $photos=$this->DB_getscandir($path);
+         
+    }
 
 }
  /*

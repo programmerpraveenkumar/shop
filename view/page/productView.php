@@ -99,7 +99,7 @@
 										</div>
 										
 										<div id="tab2">
-											photo file is not loaded
+											<?php echo $this->data['photos'] ?>
 										</div>
 										
 										<div id="tab3">

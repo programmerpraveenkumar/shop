@@ -32,3 +32,34 @@
 }
 .form .submitdiv{margin-left: 50px;}
 .form .form_error{color:red;}
+.smallfordelete{
+    width:150px;height:150px;
+}
+.grid{
+    float: left;
+    clear: left;
+    border:2px solid #00A8FF;
+}
+.gridrow{
+    border-bottom: 1px solid #21bf64; 
+    
+}
+.grid .gridcell{
+    display: inline-block;
+    width:150px;
+    height:20px;
+    overflow: auto;
+    border-right:1px solid red;padding:5px; 
+}
+.grid .gridsmall{
+    width:80px;
+}
+.grid  .image{
+    width:150px;height:150px;
+}
+.gridimage{
+    width:150px;height:150px;
+}
+.grid .gridcell .deletebtn{
+    width: 150px;
+}

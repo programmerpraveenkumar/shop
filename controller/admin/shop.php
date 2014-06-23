@@ -26,9 +26,16 @@ class shop extends controller{
     private function sliderimagestore(){
         $this->model->call('shop','sliderimagestore');
     }
-    private function edit(){
+    private function edit(){        
         $this->view->data=$this->model->call('shop','geteditshoplist');
         $this->view->render('admin/index');        
+    }
+    private function editshop(){
+        $this->view->data=$this->model->call('shop','geteditshopForm');
+        $this->view->render('admin/index');        
+    }
+    private function sliderimagedelete(){
+        $this->model->call('shop','sliderimagedelete');
     }
 }
 
