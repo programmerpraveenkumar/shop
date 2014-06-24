@@ -147,38 +147,40 @@ class shopModel extends database{
     
     /*user side*/
     public function searchproduct(){
-                $recv=isset($_GET['category'])?$_GET['category']:'update';
-                $res=$this->storedProcedure("sp_product('product_search','$recv')");
-                if($res->num_rows<=0){
-                    return array("searchcontent"=>"no record Found","categorytitle"=>"No record found for this search","categoryleft"=>$this->categorydriver()->leftMenu());
-                }
-                while($data=$res->fetch_object()){
-                    $path=PAGE_PATH.'search/productalone?id='.$data->id;
-                    $this->_tmp.='<tr>
-                                	<td class="wishlist-image">
-                                    	<a href="'.$path.'"><img src="'.PATH.'photo/photo/getindexImagefromsearch?id='.$data->id.'" alt="Product1"></a>
-                                    </td>
-                                    <td class="wishlist-info">
-                                    	<h5><a href="'.$path.'">'.$data->productname.'</a></h5>
-                                        <span class="product-category"><a href="'.$path.'">'.$data->categoryname.'</a></span>
-										<div class="rating readonly-rating" data-score="4"></div>
-                                    </td>                                    
-                                    <td class="wishlist-actions"><p>'.$data->shopname.',</p><p>'.$data->street.' ,'.$data->city.'-'.$data->pincode.'</p>'.$data->mobile.'
-                                    </td>
-                                </tr>';
-                }
-                return array("searchcontent"=>$this->_tmp,"categorytitle"=>"title f the category","categoryleft"=>$this->categorydriver()->leftMenu());
+            $recv=isset($_GET['category'])?$_GET['category']:'update';
+            $res=$this->storedProcedure("sp_product('product_search','$recv')");
+            if($res->num_rows<=0){
+                return array("searchcontent"=>"no record Found","categorytitle"=>"No record found for this search","categoryleft"=>$this->categorydriver()->leftMenu());
+            }
+            while($data=$res->fetch_object()){
+                $path=PAGE_PATH.'search/productalone?id='.$data->id;
+                $this->_tmp.='<tr>
+                                    <td class="wishlist-image">
+                                    <a href="'.$path.'"><img src="'.PATH.'photo/photo/getindexImagefromsearch?id='.$data->id.'" alt="Product1"></a>
+                                </td>
+                                <td class="wishlist-info">
+                                    <h5><a href="'.$path.'">'.$data->productname.'</a></h5>
+                                    <span class="product-category"><a href="'.$path.'">'.$data->categoryname.'</a></span>
+                                     <div class="rating readonly-rating" data-score="4"></div>
+                                </td>                                    
+                                <td class="wishlist-actions"><p>'.$data->shopname.',</p><p>'.$data->street.' ,'.$data->city.'-'.$data->pincode.'</p>'.$data->mobile.'
+                                </td>
+                            </tr>';
+            }
+            return array("searchcontent"=>$this->_tmp,"categorytitle"=>"title f the category","categoryleft"=>$this->categorydriver()->leftMenu());
     }    
     public function getproductalone(){
         $id=$_GET['id'];
          $res=$this->onefetchstoredProcedure("sp_product('id_name_product','$id')");         
-        return array("id"=>$res->id,"title"=>$res->productname,"description"=>$res->description,"categorylist"=>$this->categorydriver()->optionwithnames(),"categoryleft"=>$this->categorydriver()->leftMenu(),
-                "moreimage"=>$this->_getsliderMoreimage($res->id),
+        return array("id"=>$res->id,"title"=>$res->productname,"description"=>$res->description,"categorylist"=>$this->categorydriver()->optionwithnames(),"categoryleft"=>$this->categorydriver()->leftMenu(),                
                 "address"=>"<tr><td>$res->street</td><tr><td>$res->city</td></tr><tr><td>$res->district-$res->pincode</td></tr><tr><td>$res->mobile</td></tr>",
-                "photos"=>$this->_getsliderMoreimage($res->id)
+                "photos"=>$this->_getphotos($res->id),
+                "comment"=>$res->comment,
+                "video"=>$res->video,
+                "map"=>$res->map,
                 );      
     }   
-    private function _getsliderMoreimage($id){
+    private function DEP___getsliderMoreimage($id){        
     $path='photo/product/'.$id.'/main.jpg';
             if(!file_exists($path)){                
                 return false;
@@ -207,7 +209,16 @@ class shopModel extends database{
              return false;
          }
          $photos=$this->DB_getscandir($path);
-         
+         for($i=0;$i<count($photos);$i++){
+             $this->_tmp.='<img class="imageslide" src="'.PHOTO_PATH.'product/'.$id.'/product/'.$photos[$i].'"/>';
+         }
+         return $this->_tmp;
+    }
+    public function commentstore(){
+        //$this->store
+        $data=$_POST;
+        $this->storedProcedure("sp_product('add_comments',(shop_id,user,comment,add_time,status)values(\'$data[shopid]\',\'$data[usermail]\',\'$data[comment]\',NOW(),\'0\'))");
+
     }
 
 }

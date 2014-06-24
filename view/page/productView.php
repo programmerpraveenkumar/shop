@@ -44,7 +44,7 @@
 									</div>
 									<div id="product-carousel">
 <!--										<ul class="slides">
-                                                                                    	<?php echo $this->data['moreimage']; ?>											
+                                                                                    	<?php //echo $this->data['moreimage']; ?>											
 										</ul>
 										<div class="product-arrows">
 											<div class="left-arrow">
@@ -103,13 +103,13 @@
 										</div>
 										
 										<div id="tab3">
-											video files
+											<?php echo $this->data['video'] ?>
 										</div>
                                                                             <div id="tab4">
-											Map
+											<?php echo $this->data['map'] ?>
 									    </div>
                                                                             <div id="tab5">
-											review
+											<?php echo $this->data['comment'] ?>
 									    </div>
 
 										

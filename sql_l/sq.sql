@@ -1,6 +1,6 @@
 CREATE DATABASE  IF NOT EXISTS `shop` /*!40100 DEFAULT CHARACTER SET latin1 */;
 USE `shop`;
--- MySQL dump 10.13  Distrib 5.6.11, for Win32 (x86)
+-- MySQL dump 10.13  Distrib 5.6.13, for Win32 (x86)
 --
 -- Host: 127.0.0.1    Database: shop
 -- ------------------------------------------------------
@@ -40,7 +40,7 @@ CREATE TABLE `category` (
 
 LOCK TABLES `category` WRITE;
 /*!40000 ALTER TABLE `category` DISABLE KEYS */;
-INSERT INTO `category` VALUES (1,'update',NULL),(2,'testw',NULL),(3,'szdsadasafse',NULL),(5,'kumar',NULL),(6,'reabsae',NULL),(7,'test',1),(8,'praveen',1);
+REPLACE INTO `category` VALUES (1,'update',NULL),(2,'testw',NULL),(3,'szdsadasafse',NULL),(5,'kumar',NULL),(6,'reabsae',NULL),(7,'test',1),(8,'praveen',1);
 /*!40000 ALTER TABLE `category` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -55,9 +55,12 @@ CREATE TABLE `comments` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `shop_id` int(11) DEFAULT NULL,
   `user` varchar(45) DEFAULT NULL,
+  `comment` text,
+  `add_time` datetime DEFAULT NULL,
+  `status` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`),
   CONSTRAINT `shopid` FOREIGN KEY (`id`) REFERENCES `product` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -66,6 +69,7 @@ CREATE TABLE `comments` (
 
 LOCK TABLES `comments` WRITE;
 /*!40000 ALTER TABLE `comments` DISABLE KEYS */;
+REPLACE INTO `comments` VALUES (1,9,'praveen@gmail.com','test comment','2014-06-24 15:54:21',0),(2,9,'praveen@gmail.com','test comment','2014-06-24 15:54:21',0),(3,9,'praveen@gmail.com','test comment','2014-06-24 15:54:21',0);
 /*!40000 ALTER TABLE `comments` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -109,13 +113,35 @@ CREATE TABLE `product` (
 
 LOCK TABLES `product` WRITE;
 /*!40000 ALTER TABLE `product` DISABLE KEYS */;
-INSERT INTO `product` VALUES (1,'sivasakthi illam',1,'product nam',7,'r.s.road','vadamadurai','dindigulk','fghfd','ghfdhfg','8870079862','0455123854','sad document tetsisn this sammmple ',NULL,NULL,'45465',NULL,NULL),(2,'sivasakthi illam',1,'product nam',7,'r.s.road','vadamadurai','dindigulk','fghfd','ghfdhfg','8870079862','0455123854','sad',NULL,NULL,NULL,NULL,NULL),(3,'sivasakthi',1,'product nam',8,'r.s.road','vadamadurai','dindigul','tamilnadu','india','8870079862','0455123854','sample',NULL,NULL,NULL,NULL,NULL),(4,'sivasakthi',1,'product nam',8,'r.s.road','vadamadurai','dindigul','tamilnadu','india','8870079862','0455123854','sample',NULL,NULL,NULL,NULL,NULL),(5,'sivasakthi',1,'product nam',8,'r.s.road','vadamadurai','dindigul','tamilnadu','india','8870079862','0455123854','sample',NULL,NULL,NULL,NULL,NULL),(6,'sivasakthi',1,'product nam',8,'r.s.road','vadamadurai','dindigul','tamilnadu','india','8870079862','0455123854','sample',NULL,NULL,NULL,NULL,NULL),(7,'sivasakthi',2,'test namef',8,'r.s.road','vadamadurai','dindigul','tamilnadu','india','8870079862','0455123854','sample',NULL,NULL,NULL,NULL,NULL),(8,'praveen shop',1,'image teting',7,'praveen street','praveen city','praveen districy','praveen state','pravaeen country','7200793725','praveen phonw','praveen description',NULL,NULL,NULL,NULL,NULL),(9,'krishna shop',1,'krishna product',7,'krishna street','krishna city','krishna district','krishna state','krishna country','8870079862','krishna phone','krishna description',NULL,NULL,NULL,'krishna video',NULL);
+REPLACE INTO `product` VALUES (1,'sivasakthi illam',1,'product nam',7,'r.s.road','vadamadurai','dindigulk','fghfd','ghfdhfg','8870079862','0455123854','sad document tetsisn this sammmple ',NULL,NULL,'45465',NULL,NULL),(2,'sivasakthi illam',1,'product nam',7,'r.s.road','vadamadurai','dindigulk','fghfd','ghfdhfg','8870079862','0455123854','sad',NULL,NULL,NULL,NULL,NULL),(3,'sivasakthi',1,'product nam',8,'r.s.road','vadamadurai','dindigul','tamilnadu','india','8870079862','0455123854','sample',NULL,NULL,NULL,NULL,NULL),(4,'sivasakthi',1,'product nam',8,'r.s.road','vadamadurai','dindigul','tamilnadu','india','8870079862','0455123854','sample',NULL,NULL,NULL,NULL,NULL),(5,'sivasakthi',1,'product nam',8,'r.s.road','vadamadurai','dindigul','tamilnadu','india','8870079862','0455123854','sample',NULL,NULL,NULL,NULL,NULL),(6,'sivasakthi',1,'product nam',8,'r.s.road','vadamadurai','dindigul','tamilnadu','india','8870079862','0455123854','sample',NULL,NULL,NULL,NULL,NULL),(7,'sivasakthi',2,'test namef',8,'r.s.road','vadamadurai','dindigul','tamilnadu','india','8870079862','0455123854','sample',NULL,NULL,NULL,NULL,NULL),(8,'praveen shop',1,'image teting',7,'praveen street','praveen city','praveen districy','praveen state','pravaeen country','7200793725','praveen phonw','praveen description',NULL,NULL,NULL,NULL,NULL),(9,'krishna shop',1,'krishna product',7,'krishna street','krishna city','krishna district','krishna state','krishna country','8870079862','krishna phone','krishna description',NULL,NULL,NULL,'krishna video',NULL);
 /*!40000 ALTER TABLE `product` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
 -- Dumping routines for database 'shop'
 --
+/*!50003 DROP FUNCTION IF EXISTS `create_comment` */;
+/*!50003 SET @saved_cs_client      = @@character_set_client */ ;
+/*!50003 SET @saved_cs_results     = @@character_set_results */ ;
+/*!50003 SET @saved_col_connection = @@collation_connection */ ;
+/*!50003 SET character_set_client  = utf8 */ ;
+/*!50003 SET character_set_results = utf8 */ ;
+/*!50003 SET collation_connection  = utf8_general_ci */ ;
+/*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
+/*!50003 SET sql_mode              = '' */ ;
+DELIMITER ;;
+CREATE DEFINER=`jdhf3ghd`@`localhost` FUNCTION `create_comment`(mail text,timee DATetime,content text) RETURNS text CHARSET utf8
+    DETERMINISTIC
+BEGIN
+declare ert text;
+set @ert=concat('<div><div><span>',mail,'</span><span>',timee,'</span></div><div>',content,'</div></div>');
+return @ert;
+END ;;
+DELIMITER ;
+/*!50003 SET sql_mode              = @saved_sql_mode */ ;
+/*!50003 SET character_set_client  = @saved_cs_client */ ;
+/*!50003 SET character_set_results = @saved_cs_results */ ;
+/*!50003 SET collation_connection  = @saved_col_connection */ ;
 /*!50003 DROP PROCEDURE IF EXISTS `executequery` */;
 /*!50003 SET @saved_cs_client      = @@character_set_client */ ;
 /*!50003 SET @saved_cs_results     = @@character_set_results */ ;
@@ -199,7 +225,7 @@ select * from comments where shop_id=commandtext;
 elseif command='product_search' then
 select p.*,c.name as categoryname from category as c inner join product as p on c.id=p.category where c.name=commandtext limit 0,5;
 elseif command='id_name_product' then
-select * from product where id=commandtext;
+select pro.*,group_concat(create_comment(cmt.user,cmt.add_time,cmt.comment)) as comment from product as pro left join comments as cmt on pro.id=cmt.shop_id where pro.id=commandtext;
 elseif command='by_rank' then
 select * from product order by rank limit 0,9;
 elseif command='select_all' then
@@ -221,4 +247,4 @@ DELIMITER ;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2014-06-23  6:12:26
+-- Dump completed on 2014-06-24 17:44:37
