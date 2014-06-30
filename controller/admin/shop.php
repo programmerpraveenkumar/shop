@@ -34,8 +34,14 @@ class shop extends controller{
         $this->view->data=$this->model->call('shop','geteditshopForm');
         $this->view->render('admin/index');        
     }
+    private function shopphotosupdate(){
+        $this->model->call('shop','shopphotosupdate');
+    }
     private function sliderimagedelete(){
         $this->model->call('shop','sliderimagedelete');
+    }
+    private function update(){
+        $this->model->call('shop','updateshop');
     }
 }
 

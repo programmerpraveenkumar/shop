@@ -144,11 +144,28 @@ class shopModel extends database{
         //$id=1;
         $this->_tmp='<form name="editshop" action="'.PATH.'shop/update" class="form" method="post">'.$data.'</form>';
         $res=$this->onefetchstoredProcedure("sp_product('select_id_product','$id')");
-        $this->_tmp.='<script type="text/javascript">loadDatainForm(\'editshop\',{0:[\'product_name\',\''.$res->productname.'\']})</script>'.$this->_photosUpdate($id);
+        $this->_tmp.='<script type="text/javascript">loadDatainForm(\'editshop\',{0:[\'product_name\',\''.$res->productname.'\']})</script>'.$this->_getshopPhotos($id);
         return array("title"=>"Shop Edit Form","data"=>$this->_tmp);
         //return array_merge($this->addform(),array("title"=>"Shop Edit Form"));           
     }
-    private function _photosUpdate($id){
+    public function updateshop(){
+        try{
+            $data=$this->onefetchstoredProcedure("sp_product('update','shopname=\'new name\' where id=\'$_GET[id]\'')");        
+            if($data->result=='ok'){
+                throw new Exception('update_ok');
+            }
+            else{
+                throw new Exception('update_err');
+            }   
+        }
+        catch(Exception $e){
+                 $this->DB_adminredirect('editshop?msg='.$e->getMessage());
+        } 
+        
+    }
+    private function _getshopPhotos($id){
+        $formData='<form name="updatephotos" action="'.PATH.'shop/shopphotosupdate" class="form" method="post">'
+                . '<div class="separator"><label class="label">Select Photos</label><input type="file" name="image[]" multiple="multiple" /></div><div class="separator"><input type="submit" value="Add Photos" name="photosupdate" /></div></form>';
         $dir='photo/product/'.$id.'/product/';
         $data='<div class="left_clear"><div class="gridrow"><span class="gridcell image">Image</span><span class="gridcell">Action</span></div>';
         if(!file_exists($dir)){            
@@ -159,11 +176,21 @@ class shopModel extends database{
         for($i=0;$i<count($photodata);$i++){
                $data.='<div class="gridrow"><span class="gridcell image"><img class="gridimage" src="'.PHOTO_PATH.'product/'.$id.'/product/'.$photodata[$i].'" /></span><span class="gridcell"><a href="#">Delete</a></span></div>';
         }            
-        return $data.'</div>';
-        $this->_tmp='<form name="editshop" action="'.PATH.'shop/update" class="form" method="post">'
-                . '<div class="separator"><label class="label">TEsting aimge</label></div></form>';
+        return $data.'</div>'.$formData;
+        
     }
     
+    private function shopphotosupdate(){
+        $total=count($_FILES['image']['name']);
+        if($total<=0){
+            return false;
+        }
+        for($i=0;$i<$total;$i++){
+            move_uploaded_file($_FILES['image']['tmp_name'][$i],'photo/product/'.$id.'/product/'.uniqid().'.jpg');
+        }
+        die('photo update redirect url is not defined');
+        $this->DB_adminredirect('');
+    }
     /*user side*/
     public function searchproduct(){
             $recv=isset($_GET['category'])?$_GET['category']:'update';
