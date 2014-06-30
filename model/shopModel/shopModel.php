@@ -140,9 +140,28 @@ class shopModel extends database{
     
     public function geteditshopForm(){
         $data=$this->_productgeneralform();
-        $this->_tmp='<form name="" action="'.PATH.'shop/update" class="form" method="post">'.$data.'</form>';
+        $id=$_GET["id"];
+        //$id=1;
+        $this->_tmp='<form name="editshop" action="'.PATH.'shop/update" class="form" method="post">'.$data.'</form>';
+        $res=$this->onefetchstoredProcedure("sp_product('select_id_product','$id')");
+        $this->_tmp.='<script type="text/javascript">loadDatainForm(\'editshop\',{0:[\'product_name\',\''.$res->productname.'\']})</script>'.$this->_photosUpdate($id);
         return array("title"=>"Shop Edit Form","data"=>$this->_tmp);
-        //    return array_merge($this->addform(),array("title"=>"Shop Edit Form"));           
+        //return array_merge($this->addform(),array("title"=>"Shop Edit Form"));           
+    }
+    private function _photosUpdate($id){
+        $dir='photo/product/'.$id.'/product/';
+        $data='<div class="left_clear"><div class="gridrow"><span class="gridcell image">Image</span><span class="gridcell">Action</span></div>';
+        if(!file_exists($dir)){            
+            $data.='<span style="color:red;">NO photos availabe</span>';
+            return $data.'</div>';
+        }
+        $photodata=$this->DB_getscandir($dir);
+        for($i=0;$i<count($photodata);$i++){
+               $data.='<div class="gridrow"><span class="gridcell image"><img class="gridimage" src="'.PHOTO_PATH.'product/'.$id.'/product/'.$photodata[$i].'" /></span><span class="gridcell"><a href="#">Delete</a></span></div>';
+        }            
+        return $data.'</div>';
+        $this->_tmp='<form name="editshop" action="'.PATH.'shop/update" class="form" method="post">'
+                . '<div class="separator"><label class="label">TEsting aimge</label></div></form>';
     }
     
     /*user side*/

@@ -129,3 +129,9 @@
             }
 
 
+function loadDatainForm(formname,Formdata){
+    for(data in Formdata){
+        document.forms[formname][Formdata[data]["0"]].value=Formdata[data]["1"];
+    }
+}
+    

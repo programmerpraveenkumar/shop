@@ -47,6 +47,10 @@
     border-bottom: 1px solid #21bf64; 
     
 }
+.left_clear{
+    float:left;
+    clear: left;
+}
 .grid .gridcell{
     display: inline-block;
     width:150px;
